@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Code Guesser ⚡</title>
+    <link rel="stylesheet" href="style.css" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Roboto+Mono:wght@400;700&family=Poppins:wght@400;600;700&display=swap"
+      rel="stylesheet"
+    />
+  </head>
+  <body>
+    <div class="container">
+      <header>
+        <h1>CodeGuesser</h1>
+        <p class="tagline">Test your language recognition speed!</p>
+      </header>
+
+      <main id="game-area">
+        <div id="snippet-container">
+          <pre><code id="code-block" class="hljs"></code></pre>
+        </div>
+
+        <div id="options-container"></div>
+
+        <div id="feedback-container">
+          <p id="feedback-text"></p>
+        </div>
+
+        <div id="progress-container">
+          <p>
+            Snippet <span id="current-snippet">1</span> /
+            <span id="total-snippets">10</span>
+          </p>
+          <p>Time: <span id="timer">0.0s</span></p>
+        </div>
+      </main>
+
+      <div id="results-screen" class="hidden">
+        <h2>Challenge Complete!</h2>
+        <p>Your time: <span id="final-time"></span> seconds</p>
+        <button id="replay-button">Play Again</button>
+      </div>
+
+      <div id="start-screen">
+        <h2>Welcome to CodeGuesser!</h2>
+        <p>
+          Guess the programming language of 10 code snippets as fast as you can.
+        </p>
+        <button id="start-button">Start Challenge</button>
+      </div>
+    </div>
+
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/atom-one-dark.min.css"
+    />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+
+    <script src="script.js"></script>
+  </body>
+</html>
