@@ -162,7 +162,7 @@ document.addEventListener("DOMContentLoaded", () => {
     setTimeout(() => {
       currentSnippetIndex++;
       loadSnippet();
-    }, 1500);
+    }, 500);
   }
 
   function startTimer() {
@@ -190,6 +190,9 @@ document.addEventListener("DOMContentLoaded", () => {
     });
 
     finalTimeEl.textContent = timeElapsed.toFixed(2);
+
+    const finalScoreEl = document.getElementById("final-score");
+    finalScoreEl.textContent = score;
   }
 
   startButton.addEventListener("click", startGame);
