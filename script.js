@@ -103,6 +103,11 @@ document.addEventListener("DOMContentLoaded", () => {
     totalAttempts = 0; // Reset attempts counter
     timeElapsed = 0;
 
+    const optionalElements = document.querySelectorAll(".optional-infinite");
+    optionalElements.forEach((el) => {
+      el.style.display = gameMode === CLASSIC_MODE ? "none" : "";
+    });
+
     updateScoreDisplay();
 
     const shuffledAllSnippets = [...allSnippets];
