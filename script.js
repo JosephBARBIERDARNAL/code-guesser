@@ -115,8 +115,14 @@ document.addEventListener("DOMContentLoaded", () => {
 
     setTimeout(() => {
       const snippet = currentGameSnippets[currentSnippetIndex];
-      const result = hljs.highlightAuto(snippet.code);
-      codeBlock.innerHTML = result.value;
+
+      // Clear previous highlighting by removing hljs classes and resetting content
+      codeBlock.className = "hljs"; // Reset to base hljs class
+      codeBlock.removeAttribute("data-highlighted"); // Remove highlight.js marker
+      codeBlock.textContent = snippet.code;
+
+      // Apply highlighting
+      hljs.highlightElement(codeBlock);
 
       currentSnippetEl.textContent = currentSnippetIndex + 1;
 
