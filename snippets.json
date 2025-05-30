@@ -140,37 +140,37 @@
     "distractors": ["JavaScript", "Python Dict", "XML"]
   },
   {
-    "code": "module Main exposing (main)\nimport Html exposing (text)\n\nmain = text \"Hello, Elm!\"",
+    "code": "module Main exposing (main)\nimport Html exposing (text)\n\nmain = text \"Hello, my friend!\"",
     "language": "Elm",
     "distractors": ["Haskell", "PureScript", "F#"]
   },
   {
-    "code": "main = putStrLn \"Hello, Haskell!\"",
+    "code": "main = putStrLn \"Hello, Maria!\"",
     "language": "Haskell",
     "distractors": ["Scala", "F#", "OCaml"]
   },
   {
-    "code": "#import <Foundation/Foundation.h>\n\nint main(int argc, const char * argv[]) {\n    @autoreleasepool {\n        NSLog(@\"Hello, Objective-C!\");\n    }\n    return 0;\n}",
+    "code": "#import <Foundation/Foundation.h>\n\nint main(int argc, const char * argv[]) {\n    @autoreleasepool {\n        NSLog(@\"Hello, Julia!\");\n    }\n    return 0;\n}",
     "language": "Objective-C",
     "distractors": ["C", "C++", "Swift"]
   },
   {
-    "code": "object Main extends App {\n  println(\"Hello, Scala!\")\n}",
+    "code": "object Main extends App {\n  println(\"Hello, Pepito!\")\n}",
     "language": "Scala",
     "distractors": ["Java", "Kotlin", "Haskell"]
   },
   {
-    "code": "print \"Hello, Perl!\\n\";",
+    "code": "print \"Hello, Mike!\\n\";",
     "language": "Perl",
     "distractors": ["Ruby", "Python", "PHP"]
   },
   {
-    "code": "print(\"Hello, Lua!\")",
+    "code": "print(\"Hello!\")",
     "language": "Lua",
-    "distractors": ["Python", "JavaScript", "Ruby"]
+    "distractors": ["C", "JavaScript", "Ruby"]
   },
   {
-    "code": "void main() {\n  print('Hello, Dart!');\n}",
+    "code": "void main() {\n  print('Hello buddy!');\n}",
     "language": "Dart",
     "distractors": ["JavaScript", "Java", "C#"]
   },
@@ -180,7 +180,7 @@
     "distractors": ["Python (NumPy)", "R", "Julia"]
   },
   {
-    "code": "$Message = \"Hello, PowerShell!\"\nWrite-Host $Message",
+    "code": "$Message = \"Hello, David!\"\nWrite-Host $Message",
     "language": "PowerShell",
     "distractors": ["Bash", "CMD Batch", "Python"]
   },
@@ -200,7 +200,7 @@
     "distractors": ["OCaml", "Haskell", "Scala"]
   },
   {
-    "code": "Module HelloWorld\n    Sub Main()\n        Console.WriteLine(\"Hello, VB.NET!\")\n    End Sub\nEnd Module",
+    "code": "Module HelloWorld\n    Sub Main()\n        Console.WriteLine(\"Hello friend!\")\n    End Sub\nEnd Module",
     "language": "VB.NET",
     "distractors": ["C#", "Visual Basic 6", "Java"]
   },
@@ -265,7 +265,7 @@
     "distractors": ["JavaScript", "Python", "Vyper"]
   },
   {
-    "code": "(display \"Hello, Scheme!\")(newline)",
+    "code": "(display \"Hello, chocolate!\")(newline)",
     "language": "Scheme",
     "distractors": ["Lisp", "Clojure", "Racket"]
   },
@@ -355,7 +355,7 @@
     "distractors": ["C++", "Java", "Go"]
   },
   {
-    "code": "console.log('Hello from Node.js!');",
+    "code": "console.log('Hello from France!');",
     "language": "Node.js",
     "distractors": ["JavaScript (Browser)", "Deno", "Python"]
   },
@@ -390,7 +390,7 @@
     "distractors": ["Python", "Perl", "Shell"]
   },
   {
-    "code": "String message = \"Hello from Groovy\";\nprintln message;",
+    "code": "String message = \"Hello from Germany\";\nprintln message;",
     "language": "Groovy",
     "distractors": ["Java", "Kotlin", "Scala"]
   },
@@ -415,37 +415,27 @@
     "distractors": ["JavaScript", "Python Dict", "XML"]
   },
   {
-    "code": "module Main exposing (main)\nimport Html exposing (text)\n\nmain = text \"Hello, Elm!\"",
+    "code": "module Main exposing (main)\nimport Html exposing (text)\n\nmain = text \"Hello guys!\"",
     "language": "Elm",
     "distractors": ["Haskell", "PureScript", "F#"]
   },
   {
-    "code": "main = putStrLn \"Hello, Haskell!\"",
+    "code": "main = putStrLn \"Hello buddy!\"",
     "language": "Haskell",
     "distractors": ["Scala", "F#", "OCaml"]
   },
   {
-    "code": "#import <Foundation/Foundation.h>\n\nint main(int argc, const char * argv[]) {\n    @autoreleasepool {\n        NSLog(@\"Hello, Objective-C!\");\n    }\n    return 0;\n}",
+    "code": "#import <Foundation/Foundation.h>\n\nint main(int argc, const char * argv[]) {\n    @autoreleasepool {\n        NSLog(@\"Hello noob!\");\n    }\n    return 0;\n}",
     "language": "Objective-C",
     "distractors": ["C", "C++", "Swift"]
   },
   {
-    "code": "object Main extends App {\n  println(\"Hello, Scala!\")\n}",
+    "code": "object Main extends App {\n  println(\"Hello, Oliver!\")\n}",
     "language": "Scala",
     "distractors": ["Java", "Kotlin", "Haskell"]
   },
   {
-    "code": "print \"Hello, Perl!\\n\";",
-    "language": "Perl",
-    "distractors": ["Ruby", "Python", "PHP"]
-  },
-  {
-    "code": "print(\"Hello, Lua!\")",
-    "language": "Lua",
-    "distractors": ["Python", "JavaScript", "Ruby"]
-  },
-  {
-    "code": "void main() {\n  print('Hello, Dart!');\n}",
+    "code": "void main() {\n  print('Hello, Yan!');\n}",
     "language": "Dart",
     "distractors": ["JavaScript", "Java", "C#"]
   },
@@ -455,7 +445,7 @@
     "distractors": ["Python (NumPy)", "R", "Julia"]
   },
   {
-    "code": "$Message = \"Hello, PowerShell!\"\nWrite-Host $Message",
+    "code": "$Message = \"Hello fellow developer!\"\nWrite-Host $Message",
     "language": "PowerShell",
     "distractors": ["Bash", "CMD Batch", "Python"]
   },
@@ -465,19 +455,14 @@
     "distractors": ["Ruby", "Erlang", "Crystal"]
   },
   {
-    "code": "(defn greet [name]\n  (str \"Hello, \" name \"!\"))\n(println (greet \"Clojure\"))",
+    "code": "(defn greet [name]\n  (str \"Hello, \" name \"!\"))\n(println (greet \"my friend\"))",
     "language": "Clojure",
     "distractors": ["Lisp", "Scheme", "Racket"]
   },
   {
-    "code": "let greet name = printfn \"Hello, %s!\" name\ngreet \"F#\"",
+    "code": "let greet name = printfn \"Hello, %s!\" name\ngreet \"C#\"",
     "language": "F#",
     "distractors": ["OCaml", "Haskell", "Scala"]
-  },
-  {
-    "code": "Module HelloWorld\n    Sub Main()\n        Console.WriteLine(\"Hello, VB.NET!\")\n    End Sub\nEnd Module",
-    "language": "VB.NET",
-    "distractors": ["C#", "Visual Basic 6", "Java"]
   },
   {
     "code": "CREATE TABLE Employees (\n    ID int NOT NULL PRIMARY KEY,\n    Name varchar(255),\n    Salary int\n);",
