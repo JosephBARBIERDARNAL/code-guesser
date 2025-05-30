@@ -523,5 +523,235 @@
     "code": "HashMap<String, Integer> map = new HashMap<>();\nmap.put(\"one\", 1);\nmap.put(\"two\", 2);",
     "language": "Java",
     "distractors": ["C#", "Kotlin", "Scala"]
+  },
+  {
+    "code": "defmacro unless(condition, do: block) do\n  quote do\n    if !unquote(condition), do: unquote(block)\n  end\nend",
+    "language": "Elixir",
+    "distractors": ["Ruby", "Crystal", "Erlang"]
+  },
+  {
+    "code": "data Tree a = Empty | Node a (Tree a) (Tree a)\n\ninsert :: (Ord a) => a -> Tree a -> Tree a\ninsert x Empty = Node x Empty Empty\ninsert x (Node a left right)\n  | x == a = Node x left right\n  | x < a  = Node a (insert x left) right\n  | x > a  = Node a left (insert x right)",
+    "language": "Haskell",
+    "distractors": ["OCaml", "F#", "Elm"]
+  },
+  {
+    "code": "#!/usr/bin/env awk -f\nBEGIN { FS = \",\" }\n/^[0-9]/ {\n    sum += $3\n    count++\n}\nEND { print \"Average:\", sum/count }",
+    "language": "AWK",
+    "distractors": ["Sed", "Bash", "Perl"]
+  },
+  {
+    "code": "import asyncio\n\nasync def fetch_data(url):\n    async with aiohttp.ClientSession() as session:\n        async with session.get(url) as response:\n            return await response.json()\n\nasync def main():\n    tasks = [fetch_data(url) for url in urls]\n    results = await asyncio.gather(*tasks)",
+    "language": "Python",
+    "distractors": ["JavaScript", "C#", "Rust"]
+  },
+  {
+    "code": "type User = {\n  name: string,\n  age: number,\n  email?: string\n}\n\nconst users: User[] = []\nconst filterAdults = (users: User[]): User[] => \n  users.filter(user => user.age >= 18)",
+    "language": "TypeScript",
+    "distractors": ["JavaScript", "Flow", "ReScript"]
+  },
+  {
+    "code": "class Singleton {\n  private static $instance = null;\n  \n  private function __construct() {}\n  \n  public static function getInstance() {\n    if (self::$instance === null) {\n      self::$instance = new self();\n    }\n    return self::$instance;\n  }\n}",
+    "language": "PHP",
+    "distractors": ["Java", "C#", "JavaScript"]
+  },
+  {
+    "code": "import Foundation\n\nstruct ContentView: View {\n    @State private var isPresented = false\n    \n    var body: some View {\n        Button(\"Show Modal\") {\n            isPresented = true\n        }\n        .sheet(isPresented: $isPresented) {\n            Text(\"Modal Content\")\n        }\n    }\n}",
+    "language": "SwiftUI",
+    "distractors": ["Swift", "Kotlin Compose", "Flutter"]
+  },
+  {
+    "code": "use tokio::net::TcpListener;\nuse tokio::io::{AsyncReadExt, AsyncWriteExt};\n\n#[tokio::main]\nasync fn main() -> Result<(), Box<dyn std::error::Error>> {\n    let listener = TcpListener::bind(\"127.0.0.1:8080\").await?;\n    \n    loop {\n        let (mut socket, _) = listener.accept().await?;\n        \n        tokio::spawn(async move {\n            let mut buf = [0; 1024];\n            socket.read(&mut buf).await.unwrap();\n            socket.write_all(b\"HTTP/1.1 200 OK\\r\\n\\r\\n\").await.unwrap();\n        });\n    }\n}",
+    "language": "Rust",
+    "distractors": ["Go", "C++", "Zig"]
+  },
+  {
+    "code": "sealed class Result<out T> {\n    data class Success<T>(val data: T) : Result<T>()\n    data class Error(val exception: Throwable) : Result<Nothing>()\n}\n\nfun <T> Result<T>.getOrNull(): T? = when (this) {\n    is Result.Success -> data\n    is Result.Error -> null\n}",
+    "language": "Kotlin",
+    "distractors": ["Scala", "Swift", "Java"]
+  },
+  {
+    "code": "import numpy as np\nfrom numba import jit\n\n@jit(nopython=True)\ndef mandelbrot(c, max_iter):\n    z = 0\n    for n in range(max_iter):\n        if abs(z) > 2:\n            return n\n        z = z*z + c\n    return max_iter",
+    "language": "Python",
+    "distractors": ["Julia", "MATLAB", "NumPy"]
+  },
+  {
+    "code": "package main\n\nimport (\n    \"context\"\n    \"time\"\n)\n\nfunc worker(ctx context.Context, jobs <-chan int, results chan<- int) {\n    for {\n        select {\n        case job := <-jobs:\n            results <- job * 2\n        case <-ctx.Done():\n            return\n        }\n    }\n}",
+    "language": "Go",
+    "distractors": ["Rust", "C", "Zig"]
+  },
+  {
+    "code": "defmodule GenServer.Example do\n  use GenServer\n\n  def start_link(initial_state) do\n    GenServer.start_link(__MODULE__, initial_state, name: __MODULE__)\n  end\n\n  def handle_call({:get}, _from, state) do\n    {:reply, state, state}\n  end\n\n  def handle_cast({:set, new_state}, _state) do\n    {:noreply, new_state}\n  end\nend",
+    "language": "Elixir",
+    "distractors": ["Erlang", "Ruby", "Crystal"]
+  },
+  {
+    "code": "class Component extends React.Component {\n  componentDidMount() {\n    this.interval = setInterval(() => {\n      this.setState(prevState => ({\n        count: prevState.count + 1\n      }));\n    }, 1000);\n  }\n  \n  componentWillUnmount() {\n    clearInterval(this.interval);\n  }\n}",
+    "language": "React (JSX)",
+    "distractors": ["JavaScript", "TypeScript", "Vue.js"]
+  },
+  {
+    "code": "CREATE OR REPLACE FUNCTION calculate_tax(salary DECIMAL(10,2))\nRETURNS DECIMAL(10,2)\nDETERMINISTIC\nBEGIN\n    DECLARE tax_rate DECIMAL(3,2);\n    \n    CASE \n        WHEN salary <= 50000 THEN SET tax_rate = 0.10;\n        WHEN salary <= 100000 THEN SET tax_rate = 0.20;\n        ELSE SET tax_rate = 0.30;\n    END CASE;\n    \n    RETURN salary * tax_rate;\nEND",
+    "language": "MySQL",
+    "distractors": ["PostgreSQL", "SQL Server", "Oracle"]
+  },
+  {
+    "code": "import Control.Monad.State\n\ntype Stack = [Int]\n\npop :: State Stack Int\npop = do\n    (x:xs) <- get\n    put xs\n    return x\n\npush :: Int -> State Stack ()\npush x = modify (x:)",
+    "language": "Haskell",
+    "distractors": ["OCaml", "F#", "PureScript"]
+  },
+  {
+    "code": "import kotlinx.coroutines.*\n\nsuspend fun fetchUser(id: String): User = withContext(Dispatchers.IO) {\n    delay(1000) // Simulate network call\n    User(id, \"John Doe\")\n}\n\nfun main() = runBlocking {\n    val users = (1..10).map { async { fetchUser(\"user$it\") } }\n    users.awaitAll().forEach { println(it) }\n}",
+    "language": "Kotlin",
+    "distractors": ["Java", "Scala", "C#"]
+  },
+  {
+    "code": "WITH RECURSIVE fibonacci(n, a, b) AS (\n    SELECT 1, 0, 1\n    UNION ALL\n    SELECT n+1, b, a+b FROM fibonacci WHERE n < 10\n)\nSELECT n, a as fibonacci_number FROM fibonacci;",
+    "language": "SQL",
+    "distractors": ["PostgreSQL", "MySQL", "Oracle"]
+  },
+  {
+    "code": "actor Counter {\n    private var count = 0\n    \n    func increment() {\n        count += 1\n    }\n    \n    func getCount() -> Int {\n        return count\n    }\n}\n\nlet counter = Counter()\nawait counter.increment()",
+    "language": "Swift",
+    "distractors": ["Kotlin", "C#", "Scala"]
+  },
+  {
+    "code": "module.exports = {\n  plugins: [\n    require('tailwindcss'),\n    require('autoprefixer'),\n    ...(process.env.NODE_ENV === 'production'\n      ? [require('cssnano')({ preset: 'default' })]\n      : [])\n  ]\n}",
+    "language": "JavaScript",
+    "distractors": ["JSON", "Node.js", "TypeScript"]
+  },
+  {
+    "code": "using System.Text.Json;\n\nvar options = new JsonSerializerOptions\n{\n    PropertyNamingPolicy = JsonNamingPolicy.CamelCase,\n    WriteIndented = true\n};\n\nvar json = JsonSerializer.Serialize(person, options);\nvar deserializedPerson = JsonSerializer.Deserialize<Person>(json, options);",
+    "language": "C#",
+    "distractors": ["Java", "F#", "VB.NET"]
+  },
+  {
+    "code": "const schema = z.object({\n  name: z.string().min(1),\n  email: z.string().email(),\n  age: z.number().int().positive(),\n  tags: z.array(z.string()).optional()\n});\n\ntype User = z.infer<typeof schema>;\n\nconst result = schema.safeParse(userData);",
+    "language": "TypeScript",
+    "distractors": ["JavaScript", "Flow", "ReScript"]
+  },
+  {
+    "code": "trait Drawable {\n    fn draw(&self);\n}\n\nstruct Circle { radius: f64 }\nstruct Rectangle { width: f64, height: f64 }\n\nimpl Drawable for Circle {\n    fn draw(&self) {\n        println!(\"Drawing circle with radius {}\", self.radius);\n    }\n}\n\nfn render(shape: &dyn Drawable) {\n    shape.draw();\n}",
+    "language": "Rust",
+    "distractors": ["C++", "Go", "Swift"]
+  },
+  {
+    "code": "defprotocol Enumerable do\n  def count(collection)\n  def member?(collection, value)\nend\n\ndefimpl Enumerable, for: List do\n  def count(list), do: length(list)\n  def member?(list, value), do: value in list\nend\n\ndefimpl Enumerable, for: Map do\n  def count(map), do: map_size(map)\n  def member?(map, {key, value}), do: Map.get(map, key) == value\nend",
+    "language": "Elixir",
+    "distractors": ["Ruby", "Crystal", "Erlang"]
+  },
+  {
+    "code": "import { createSlice, PayloadAction } from '@reduxjs/toolkit'\n\ninterface CounterState {\n  value: number\n}\n\nconst counterSlice = createSlice({\n  name: 'counter',\n  initialState: { value: 0 } as CounterState,\n  reducers: {\n    increment: (state) => {\n      state.value += 1\n    },\n    decrement: (state) => {\n      state.value -= 1\n    },\n    incrementByAmount: (state, action: PayloadAction<number>) => {\n      state.value += action.payload\n    }\n  }\n})",
+    "language": "TypeScript",
+    "distractors": ["JavaScript", "React", "Redux"]
+  },
+  {
+    "code": "#[derive(Debug, Serialize, Deserialize)]\nstruct Config {\n    host: String,\n    port: u16,\n    database: DatabaseConfig,\n}\n\n#[derive(Debug, Serialize, Deserialize)]\nstruct DatabaseConfig {\n    url: String,\n    max_connections: u32,\n}\n\nfn load_config() -> Result<Config, Box<dyn std::error::Error>> {\n    let config_str = std::fs::read_to_string(\"config.toml\")?;\n    let config: Config = toml::from_str(&config_str)?;\n    Ok(config)\n}",
+    "language": "Rust",
+    "distractors": ["Go", "C++", "Zig"]
+  },
+  {
+    "code": "open System\nopen System.Threading.Tasks\n\nlet asyncComputation = async {\n    let! result1 = async { return 42 }\n    let! result2 = async { return \"Hello\" }\n    return sprintf \"%s %d\" result2 result1\n}\n\nlet result = asyncComputation |> Async.RunSynchronously",
+    "language": "F#",
+    "distractors": ["OCaml", "Haskell", "Scala"]
+  },
+  {
+    "code": "class Metaclass(type):\n    def __new__(cls, name, bases, attrs):\n        attrs['class_id'] = f\"{name.lower()}_{hash(name) % 1000}\"\n        return super().__new__(cls, name, bases, attrs)\n    \n    def __call__(cls, *args, **kwargs):\n        instance = super().__call__(*args, **kwargs)\n        print(f\"Created instance of {cls.__name__}\")\n        return instance\n\nclass MyClass(metaclass=Metaclass):\n    pass",
+    "language": "Python",
+    "distractors": ["Ruby", "JavaScript", "Java"]
+  },
+  {
+    "code": "import { z } from 'zod'\nimport { procedure, router } from './trpc'\n\nconst appRouter = router({\n  getUser: procedure\n    .input(z.object({ id: z.string() }))\n    .query(async ({ input }) => {\n      return await db.user.findUnique({\n        where: { id: input.id }\n      })\n    }),\n  \n  createUser: procedure\n    .input(z.object({ \n      name: z.string(), \n      email: z.string().email() \n    }))\n    .mutation(async ({ input }) => {\n      return await db.user.create({ data: input })\n    })\n})",
+    "language": "TypeScript",
+    "distractors": ["JavaScript", "GraphQL", "REST API"]
+  },
+  {
+    "code": "class Person\n  getter name : String\n  getter age : Int32\n  \n  def initialize(@name : String, @age : Int32)\n  end\n  \n  def adult?\n    @age >= 18\n  end\n  \n  def greet(other : Person)\n    puts \"Hello #{other.name}, I'm #{@name}\"\n  end\nend\n\nperson = Person.new(\"Alice\", 25)\nputs person.adult?",
+    "language": "Crystal",
+    "distractors": ["Ruby", "Swift", "Kotlin"]
+  },
+  {
+    "code": "import cats.effect._\nimport cats.implicits._\n\nobject IOExample extends IOApp {\n  def computation(n: Int): IO[Int] = IO {\n    println(s\"Computing $n\")\n    n * n\n  }\n  \n  def run(args: List[String]): IO[ExitCode] = {\n    val tasks = (1 to 5).toList.map(computation)\n    tasks.parSequence.map(_.sum).map { result =>\n      println(s\"Sum of squares: $result\")\n      ExitCode.Success\n    }\n  }\n}",
+    "language": "Scala",
+    "distractors": ["Haskell", "F#", "Clojure"]
+  },
+  {
+    "code": "import scrapy\nfrom scrapy import Request\n\nclass ProductSpider(scrapy.Spider):\n    name = 'products'\n    start_urls = ['https://example.com/products']\n    \n    def parse(self, response):\n        for product in response.css('.product'):\n            yield {\n                'name': product.css('.name::text').get(),\n                'price': product.css('.price::text').re_first(r'\\d+\\.\\d+')\n            }\n        \n        next_page = response.css('.next::attr(href)').get()\n        if next_page:\n            yield Request(url=next_page, callback=self.parse)",
+    "language": "Python",
+    "distractors": ["BeautifulSoup", "Selenium", "Requests"]
+  },
+  {
+    "code": "extension Array where Element: Comparable {\n    func quicksorted() -> [Element] {\n        guard count > 1 else { return self }\n        \n        let pivot = self[count / 2]\n        let less = filter { $0 < pivot }\n        let equal = filter { $0 == pivot }\n        let greater = filter { $0 > pivot }\n        \n        return less.quicksorted() + equal + greater.quicksorted()\n    }\n}",
+    "language": "Swift",
+    "distractors": ["Kotlin", "C#", "Rust"]
+  },
+  {
+    "code": "import Data.Maybe (fromMaybe)\nimport Control.Applicative ((<|>))\n\ndata JSON = JNull | JBool Bool | JNumber Double | JString String\n          | JArray [JSON] | JObject [(String, JSON)]\n\nparseJSON :: String -> Maybe JSON\nparseJSON \"null\" = Just JNull\nparseJSON \"true\" = Just (JBool True)\nparseJSON \"false\" = Just (JBool False)\nparseJSON s = parseNumber s <|> parseString s\n  where\n    parseNumber s = JNumber <$> readMaybe s\n    parseString s = if head s == '\"' && last s == '\"'\n                   then Just (JString $ init $ tail s)\n                   else Nothing",
+    "language": "Haskell",
+    "distractors": ["OCaml", "F#", "Elm"]
+  },
+  {
+    "code": "import { Application, Router } from \"https://deno.land/x/oak/mod.ts\";\n\nconst router = new Router();\n\nrouter\n  .get(\"/\", (ctx) => {\n    ctx.response.body = \"Hello Deno!\";\n  })\n  .get(\"/api/users/:id\", (ctx) => {\n    const id = ctx.params.id;\n    ctx.response.body = { id, name: `User ${id}` };\n  });\n\nconst app = new Application();\napp.use(router.routes());\napp.use(router.allowedMethods());\n\nawait app.listen({ port: 8000 });",
+    "language": "Deno",
+    "distractors": ["Node.js", "TypeScript", "JavaScript"]
+  },
+  {
+    "code": "proc bubble_sort[T](arr: var seq[T]) =\n  let n = arr.len\n  for i in 0..<n:\n    for j in 0..<(n-i-1):\n      if arr[j] > arr[j+1]:\n        swap(arr[j], arr[j+1])\n\nvar numbers = @[64, 34, 25, 12, 22, 11, 90]\nbubble_sort(numbers)\necho numbers",
+    "language": "Nim",
+    "distractors": ["Crystal", "D", "Zig"]
+  },
+  {
+    "code": "mutation CreateUser($input: CreateUserInput!) {\n  createUser(input: $input) {\n    user {\n      id\n      name\n      email\n      createdAt\n    }\n    errors {\n      field\n      message\n    }\n  }\n}\n\nfragment UserFields on User {\n  id\n  name\n  email\n  profile {\n    avatar\n    bio\n  }\n}",
+    "language": "GraphQL",
+    "distractors": ["JSON", "REST API", "TypeScript"]
+  },
+  {
+    "code": "import { defineConfig } from 'vite'\nimport { sveltekit } from '@sveltejs/kit/vite'\n\nexport default defineConfig({\n  plugins: [sveltekit()],\n  server: {\n    host: '0.0.0.0',\n    port: 3000\n  },\n  build: {\n    target: 'es2020',\n    sourcemap: true\n  },\n  optimizeDeps: {\n    include: ['lodash-es']\n  }\n})",
+    "language": "JavaScript",
+    "distractors": ["TypeScript", "JSON", "Node.js"]
+  },
+  {
+    "code": "class Observable<T> {\n    private observers: ((value: T) => void)[] = []\n    \n    subscribe(observer: (value: T) => void): () => void {\n        this.observers.push(observer)\n        return () => {\n            const index = this.observers.indexOf(observer)\n            if (index > -1) this.observers.splice(index, 1)\n        }\n    }\n    \n    emit(value: T): void {\n        this.observers.forEach(observer => observer(value))\n    }\n    \n    map<U>(fn: (value: T) => U): Observable<U> {\n        const mapped = new Observable<U>()\n        this.subscribe(value => mapped.emit(fn(value)))\n        return mapped\n    }\n}",
+    "language": "TypeScript",
+    "distractors": ["JavaScript", "RxJS", "Java"]
+  },
+  {
+    "code": "defmodule TaskSupervisor do\n  use DynamicSupervisor\n\n  def start_link(init_arg) do\n    DynamicSupervisor.start_link(__MODULE__, init_arg, name: __MODULE__)\n  end\n\n  def init(_init_arg) do\n    DynamicSupervisor.init(strategy: :one_for_one)\n  end\n\n  def start_task(fun) do\n    spec = %{\n      id: Task,\n      start: {Task, :start_link, [fun]},\n      restart: :temporary\n    }\n    DynamicSupervisor.start_child(__MODULE__, spec)\n  end\nend",
+    "language": "Elixir",
+    "distractors": ["Erlang", "Ruby", "Crystal"]
+  },
+  {
+    "code": "import { atom, selector, useRecoilState, useRecoilValue } from 'recoil'\n\nconst textState = atom({\n  key: 'textState',\n  default: ''\n})\n\nconst charCountState = selector({\n  key: 'charCountState',\n  get: ({get}) => {\n    const text = get(textState)\n    return text.length\n  }\n})\n\nfunction TextInput() {\n  const [text, setText] = useRecoilState(textState)\n  const count = useRecoilValue(charCountState)\n  \n  return (\n    <div>\n      <input value={text} onChange={(e) => setText(e.target.value)} />\n      <p>Character count: {count}</p>\n    </div>\n  )\n}",
+    "language": "React (JSX)",
+    "distractors": ["TypeScript", "JavaScript", "Vue.js"]
+  },
+  {
+    "code": "import pandas as pd\nimport numpy as np\nfrom sklearn.preprocessing import StandardScaler\nfrom sklearn.decomposition import PCA\n\ndef perform_pca(df, n_components=2):\n    # Standardize the data\n    scaler = StandardScaler()\n    scaled_data = scaler.fit_transform(df.select_dtypes(include=[np.number]))\n    \n    # Apply PCA\n    pca = PCA(n_components=n_components)\n    transformed_data = pca.fit_transform(scaled_data)\n    \n    # Create new DataFrame\n    columns = [f'PC{i+1}' for i in range(n_components)]\n    return pd.DataFrame(transformed_data, columns=columns, index=df.index)",
+    "language": "Python",
+    "distractors": ["R", "MATLAB", "Julia"]
+  },
+  {
+    "code": "public record Person(String name, int age, String email) {\n    public Person {\n        if (age < 0) {\n            throw new IllegalArgumentException(\"Age cannot be negative\");\n        }\n        if (email == null || !email.contains(\"@\")) {\n            throw new IllegalArgumentException(\"Invalid email\");\n        }\n    }\n    \n    public boolean isAdult() {\n        return age >= 18;\n    }\n    \n    public Person withAge(int newAge) {\n        return new Person(name, newAge, email);\n    }\n}",
+    "language": "Java",
+    "distractors": ["C#", "Kotlin", "Scala"]
+  },
+  {
+    "code": "use std::collections::HashMap;\nuse std::hash::Hash;\n\nstruct LRUCache<K, V> {\n    capacity: usize,\n    map: HashMap<K, V>,\n    order: std::collections::VecDeque<K>,\n}\n\nimpl<K: Clone + Hash + Eq, V> LRUCache<K, V> {\n    fn new(capacity: usize) -> Self {\n        Self {\n            capacity,\n            map: HashMap::new(),\n            order: std::collections::VecDeque::new(),\n        }\n    }\n    \n    fn get(&mut self, key: &K) -> Option<&V> {\n        if self.map.contains_key(key) {\n            self.move_to_front(key);\n            self.map.get(key)\n        } else {\n            None\n        }\n    }\n}",
+    "language": "Rust",
+    "distractors": ["C++", "Go", "Zig"]
+  },
+  {
+    "code": "version: '3.8'\nservices:\n  web:\n    build: .\n    ports:\n      - \"3000:3000\"\n    environment:\n      - NODE_ENV=production\n      - DATABASE_URL=postgres://user:pass@db:5432/myapp\n    depends_on:\n      - db\n      - redis\n    volumes:\n      - ./uploads:/app/uploads\n  \n  db:\n    image: postgres:13\n    environment:\n      POSTGRES_DB: myapp\n      POSTGRES_USER: user\n      POSTGRES_PASSWORD: pass\n    volumes:\n      - postgres_data:/var/lib/postgresql/data\n  \n  redis:\n    image: redis:alpine\n    \nvolumes:\n  postgres_data:",
+    "language": "Docker Compose",
+    "distractors": ["YAML", "Kubernetes", "Docker"]
+  },
+  {
+    "code": "import { z } from 'zod'\nimport { createTRPCNext } from '@trpc/next'\n\nconst userSchema = z.object({\n  id: z.string(),\n  name: z.string(),\n  email: z.string().email(),\n})\n\nexport const { useQuery, useMutation } = createTRPCNext<AppRouter>({\n  config({ ctx }) {\n    return {\n      transformer: superjson,\n      links: [\n        httpBatchLink({\n          url: '/api/trpc',\n          headers() {\n            return {\n              authorization: getAuthCookie(),\n            }\n          },\n        }),\n      ],\n    }\n  },\n  ssr: false,\n})",
+    "language": "TypeScript",
+    "distractors": ["JavaScript", "Next.js", "React"]
+  },
+  {
+    "code": "import SwiftUI\n\nstruct ContentView: View {\n    @StateObject private var viewModel = WeatherViewModel()\n    \n    var body: some View {\n        NavigationView {\n            List(viewModel.forecasts) { forecast in\n                WeatherRow(forecast: forecast)\n                    .onAppear {\n                        if forecast == viewModel.forecasts.last {\n                            Task {\n                                await viewModel.loadMoreForecasts()\n                            }\n                        }\n                    }\n            }\n            .refreshable {\n                await viewModel.refresh()\n            }\n            .navigationTitle(\"Weather\")\n        }\n    }\n}",
+    "language": "SwiftUI",
+    "distractors": ["Swift", "Kotlin Compose", "Flutter"]
   }
 ]
