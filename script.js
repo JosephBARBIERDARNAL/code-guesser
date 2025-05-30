@@ -13,7 +13,14 @@ document.addEventListener("DOMContentLoaded", () => {
   const gameArea = document.getElementById("game-area");
   const snippetContainer = document.getElementById("snippet-container");
 
+  const CLASSIC_MODE = "classic";
+  const INFINITE_MODE = "infinite";
   const SNIPPETS_PER_GAME = 10;
+
+  let totalAttempts = 0;
+  let gameMode = CLASSIC_MODE;
+  let classicModeButton;
+  let infiniteModeButton;
   let allSnippets = [];
   let currentGameSnippets = [];
   let currentSnippetIndex = 0;
@@ -22,6 +29,9 @@ document.addEventListener("DOMContentLoaded", () => {
   let startTime;
   let timeElapsed = 0;
   let languagesSet = new Set();
+
+  classicModeButton = document.getElementById("classic-mode-button");
+  infiniteModeButton = document.getElementById("infinite-mode-button");
 
   async function loadSnippets() {
     try {
@@ -62,6 +72,17 @@ document.addEventListener("DOMContentLoaded", () => {
     }
   }
 
+  function updateScoreDisplay() {
+    if (gameMode === INFINITE_MODE && totalAttempts > 0) {
+      const percentage = Math.round((score / totalAttempts) * 100);
+      document.getElementById(
+        "current-score"
+      ).textContent = `${percentage}% (${score}/${totalAttempts})`;
+    } else {
+      document.getElementById("current-score").textContent = "0% (0/0)";
+    }
+  }
+
   function getDistractors(correctLanguage, snippetDistractors) {
     const distractors = new Set(snippetDistractors || []);
     const allLangsArray = Array.from(languagesSet);
@@ -75,18 +96,31 @@ document.addEventListener("DOMContentLoaded", () => {
     return Array.from(distractors).slice(0, 3);
   }
 
-  function startGame() {
+  function startGame(mode) {
+    gameMode = mode;
     currentSnippetIndex = 0;
     score = 0;
+    totalAttempts = 0; // Reset attempts counter
     timeElapsed = 0;
+
+    updateScoreDisplay();
 
     const shuffledAllSnippets = [...allSnippets];
     shuffleArray(shuffledAllSnippets);
-    currentGameSnippets = shuffledAllSnippets.slice(
-      0,
-      Math.min(SNIPPETS_PER_GAME, allSnippets.length)
-    );
-    totalSnippetsEl.textContent = currentGameSnippets.length;
+
+    if (gameMode === CLASSIC_MODE) {
+      currentGameSnippets = shuffledAllSnippets.slice(
+        0,
+        Math.min(SNIPPETS_PER_GAME, allSnippets.length)
+      );
+      totalSnippetsEl.textContent = currentGameSnippets.length;
+      document.querySelector("#progress-container p").style.display = "block";
+    } else {
+      // Infinite mode - use all snippets in random order
+      currentGameSnippets = shuffledAllSnippets;
+      totalSnippetsEl.textContent = "∞";
+      document.querySelector("#progress-container p").style.display = "none";
+    }
 
     startScreen.classList.add("hidden");
     resultsScreen.classList.add("hidden");
@@ -104,9 +138,21 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 
   function loadSnippet() {
-    if (currentSnippetIndex >= currentGameSnippets.length) {
+    if (
+      gameMode === CLASSIC_MODE &&
+      currentSnippetIndex >= currentGameSnippets.length
+    ) {
       endGame();
       return;
+    }
+
+    // For infinite mode, loop back to the beginning if we've gone through all snippets
+    if (
+      gameMode === INFINITE_MODE &&
+      currentSnippetIndex >= currentGameSnippets.length
+    ) {
+      currentSnippetIndex = 0;
+      shuffleArray(currentGameSnippets); // reshuffle for variety
     }
 
     feedbackText.textContent = "";
@@ -148,6 +194,7 @@ document.addEventListener("DOMContentLoaded", () => {
     const buttons = optionsContainer.querySelectorAll(".option-button");
     buttons.forEach((btn) => btn.classList.add("disabled"));
 
+    totalAttempts++; // Increment attempts for infinite mode
     if (selectedOption === correctLanguage) {
       score++;
       feedbackText.textContent = "Correct! 🎉";
@@ -163,6 +210,11 @@ document.addEventListener("DOMContentLoaded", () => {
           btn.classList.add("correct");
         }
       });
+    }
+
+    // Update score display for infinite mode
+    if (gameMode === INFINITE_MODE) {
+      updateScoreDisplay();
     }
 
     setTimeout(() => {
@@ -185,23 +237,38 @@ document.addEventListener("DOMContentLoaded", () => {
 
   function endGame() {
     stopTimer();
-    gameArea.classList.add("hidden");
-    resultsScreen.classList.remove("hidden");
-    resultsScreen.style.opacity = "0";
-    resultsScreen.style.transform = "scale(0.95)";
 
-    requestAnimationFrame(() => {
-      resultsScreen.style.opacity = "1";
-      resultsScreen.style.transform = "scale(1)";
-    });
+    if (gameMode === CLASSIC_MODE) {
+      gameArea.classList.add("hidden");
+      resultsScreen.classList.remove("hidden");
+      resultsScreen.style.opacity = "0";
+      resultsScreen.style.transform = "scale(0.95)";
 
-    finalTimeEl.textContent = timeElapsed.toFixed(2);
+      requestAnimationFrame(() => {
+        resultsScreen.style.opacity = "1";
+        resultsScreen.style.transform = "scale(1)";
+      });
 
-    const finalScoreEl = document.getElementById("final-score");
-    finalScoreEl.textContent = score;
+      finalTimeEl.textContent = timeElapsed.toFixed(2);
+      document.getElementById("final-score").textContent = score;
+    } else {
+      // For infinite mode, just show the score in the game area
+      feedbackText.textContent = `Current score: ${score} (Time: ${timeElapsed.toFixed(
+        1
+      )}s)`;
+      feedbackText.className = "score-display";
+
+      // Reset for next question
+      setTimeout(() => {
+        currentSnippetIndex++;
+        loadSnippet();
+      }, 1000);
+    }
   }
 
-  startButton.addEventListener("click", startGame);
+  classicModeButton.addEventListener("click", () => startGame(CLASSIC_MODE));
+  infiniteModeButton.addEventListener("click", () => startGame(INFINITE_MODE));
+  //startButton.addEventListener("click", startGame);
   replayButton.addEventListener("click", () => {
     resultsScreen.classList.add("hidden");
     startScreen.classList.remove("hidden");

@@ -36,6 +36,7 @@
             <span id="total-snippets">10</span>
           </p>
           <p>Time: <span id="timer">0.0s</span></p>
+          <p class="score-display">Score: <span id="current-score">0%</span></p>
         </div>
       </main>
 
@@ -49,11 +50,19 @@
       </div>
 
       <div id="start-screen">
-        <p style="font-size: medium">
-          Guess the programming language of 10 code snippets
-          <b>as fast as you can</b>.
-        </p>
-        <button id="start-button">Start Challenge</button>
+        <div id="mode-selection">
+          <h2>Select Game Mode</h2>
+          <div class="mode-options">
+            <button id="classic-mode-button" class="mode-button">
+              <span class="mode-title">Classic</span>
+              <span class="mode-description">10 snippets, timed challenge</span>
+            </button>
+            <button id="infinite-mode-button" class="mode-button">
+              <span class="mode-title">Infinite</span>
+              <span class="mode-description">Endless play, score tracking</span>
+            </button>
+          </div>
+        </div>
       </div>
     </div>
 
