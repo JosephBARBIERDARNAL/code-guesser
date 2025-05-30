@@ -115,8 +115,8 @@ document.addEventListener("DOMContentLoaded", () => {
 
     setTimeout(() => {
       const snippet = currentGameSnippets[currentSnippetIndex];
-      codeBlock.textContent = snippet.code;
-      hljs.highlightElement(codeBlock);
+      const result = hljs.highlightAuto(snippet.code);
+      codeBlock.innerHTML = result.value;
 
       currentSnippetEl.textContent = currentSnippetIndex + 1;
 
