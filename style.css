@@ -290,7 +290,6 @@ header h1 {
   }
 }
 
-/* Mode selection styles */
 #mode-selection {
   text-align: center;
   max-width: 500px;
@@ -332,7 +331,6 @@ header h1 {
   opacity: 0.8;
 }
 
-/* Add to your style.css */
 .score-display {
   color: #4caf50;
   font-size: 1rem;

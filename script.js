@@ -8,7 +8,6 @@ document.addEventListener("DOMContentLoaded", () => {
   const resultsScreen = document.getElementById("results-screen");
   const finalTimeEl = document.getElementById("final-time");
   const replayButton = document.getElementById("replay-button");
-  const startButton = document.getElementById("start-button");
   const startScreen = document.getElementById("start-screen");
   const gameArea = document.getElementById("game-area");
   const snippetContainer = document.getElementById("snippet-container");
@@ -100,7 +99,7 @@ document.addEventListener("DOMContentLoaded", () => {
     gameMode = mode;
     currentSnippetIndex = 0;
     score = 0;
-    totalAttempts = 0; // Reset attempts counter
+    totalAttempts = 0;
     timeElapsed = 0;
 
     const optionalElements = document.querySelectorAll(".optional-infinite");
@@ -121,7 +120,6 @@ document.addEventListener("DOMContentLoaded", () => {
       totalSnippetsEl.textContent = currentGameSnippets.length;
       document.querySelector("#progress-container p").style.display = "block";
     } else {
-      // Infinite mode - use all snippets in random order
       currentGameSnippets = shuffledAllSnippets;
       totalSnippetsEl.textContent = "∞";
       document.querySelector("#progress-container p").style.display = "none";
@@ -151,13 +149,12 @@ document.addEventListener("DOMContentLoaded", () => {
       return;
     }
 
-    // For infinite mode, loop back to the beginning if we've gone through all snippets
     if (
       gameMode === INFINITE_MODE &&
       currentSnippetIndex >= currentGameSnippets.length
     ) {
       currentSnippetIndex = 0;
-      shuffleArray(currentGameSnippets); // reshuffle for variety
+      shuffleArray(currentGameSnippets);
     }
 
     feedbackText.textContent = "";
@@ -167,12 +164,10 @@ document.addEventListener("DOMContentLoaded", () => {
     setTimeout(() => {
       const snippet = currentGameSnippets[currentSnippetIndex];
 
-      // Clear previous highlighting by removing hljs classes and resetting content
-      codeBlock.className = "hljs"; // Reset to base hljs class
-      codeBlock.removeAttribute("data-highlighted"); // Remove highlight.js marker
+      codeBlock.className = "hljs";
+      codeBlock.removeAttribute("data-highlighted");
       codeBlock.textContent = snippet.code;
 
-      // Apply highlighting
       hljs.highlightElement(codeBlock);
 
       currentSnippetEl.textContent = currentSnippetIndex + 1;
@@ -199,7 +194,7 @@ document.addEventListener("DOMContentLoaded", () => {
     const buttons = optionsContainer.querySelectorAll(".option-button");
     buttons.forEach((btn) => btn.classList.add("disabled"));
 
-    totalAttempts++; // Increment attempts for infinite mode
+    totalAttempts++;
     if (selectedOption === correctLanguage) {
       score++;
       feedbackText.textContent = "Correct! 🎉";
@@ -217,7 +212,6 @@ document.addEventListener("DOMContentLoaded", () => {
       });
     }
 
-    // Update score display for infinite mode
     if (gameMode === INFINITE_MODE) {
       updateScoreDisplay();
     }
@@ -257,13 +251,11 @@ document.addEventListener("DOMContentLoaded", () => {
       finalTimeEl.textContent = timeElapsed.toFixed(2);
       document.getElementById("final-score").textContent = score;
     } else {
-      // For infinite mode, just show the score in the game area
       feedbackText.textContent = `Current score: ${score} (Time: ${timeElapsed.toFixed(
         1
       )}s)`;
       feedbackText.className = "score-display";
 
-      // Reset for next question
       setTimeout(() => {
         currentSnippetIndex++;
         loadSnippet();
@@ -273,7 +265,6 @@ document.addEventListener("DOMContentLoaded", () => {
 
   classicModeButton.addEventListener("click", () => startGame(CLASSIC_MODE));
   infiniteModeButton.addEventListener("click", () => startGame(INFINITE_MODE));
-  //startButton.addEventListener("click", startGame);
   replayButton.addEventListener("click", () => {
     resultsScreen.classList.add("hidden");
     startScreen.classList.remove("hidden");
