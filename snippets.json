@@ -1,742 +1,292 @@
 [
   {
-    "code": "function greet(name) {\n  return \"Hello, \" + name + \"!\";\n}",
+    "code": "function calculateSum(numbers) {\n  return numbers.reduce((acc, num) => acc + num, 0);\n}",
     "language": "JavaScript",
-    "distractors": ["Python", "Ruby", "Java"]
+    "distractors": ["TypeScript", "Java", "C#"]
   },
   {
-    "code": "def greet(name):\n    return f\"Hello, {name}!\"",
-    "language": "Python",
-    "distractors": ["JavaScript", "C#", "PHP"]
-  },
-  {
-    "code": "public class HelloWorld {\n    public static void main(String[] args) {\n        System.out.println(\"Hello, World!\");\n    }\n}",
-    "language": "Java",
-    "distractors": ["C++", "Python", "Swift"]
-  },
-  {
-    "code": "fn main() {\n    println!(\"Hello, world!\");\n}",
-    "language": "Rust",
-    "distractors": ["Go", "C", "Haskell"]
-  },
-  {
-    "code": "package main\n\nimport \"fmt\"\n\nfunc main() {\n    fmt.Println(\"Hello, World\")\n}",
-    "language": "Go",
-    "distractors": ["Rust", "Python", "C#"]
-  },
-  {
-    "code": "<?php\n  echo \"Hello, World!\";\n?>",
-    "language": "PHP",
-    "distractors": ["JavaScript", "Perl", "Ruby"]
-  },
-  {
-    "code": "puts \"Hello, World!\"",
-    "language": "Ruby",
-    "distractors": ["Python", "Perl", "Lua"]
-  },
-  {
-    "code": "let message = \"Hello, World!\";\nprint(message)",
-    "language": "Swift",
-    "distractors": ["Kotlin", "Objective-C", "Java"]
-  },
-  {
-    "code": "fun main() {\n    println(\"Hello, World!\")\n}",
-    "language": "Kotlin",
-    "distractors": ["Java", "Swift", "Scala"]
-  },
-  {
-    "code": "using System;\n\npublic class HelloWorld\n{\n    public static void Main(string[] args)\n    {\n        Console.WriteLine (\"Hello World!\");\n    }\n}",
-    "language": "C#",
-    "distractors": ["Java", "VB.NET", "C++"]
-  },
-  {
-    "code": "#include <iostream>\n\nint main() {\n    std::cout << \"Hello, World!\" << std::endl;\n    return 0;\n}",
-    "language": "C++",
-    "distractors": ["C", "Java", "Rust"]
-  },
-  {
-    "code": "SELECT name, age FROM users WHERE country = 'USA';",
-    "language": "SQL",
-    "distractors": ["Python", "JSON", "NoSQL"]
-  },
-  {
-    "code": "<ul>\n  <li *ngFor=\"let item of items\">{{ item.name }}</li>\n</ul>",
-    "language": "Angular (HTML)",
-    "distractors": ["React (JSX)", "Vue.js", "HTML"]
-  },
-  {
-    "code": "const MyComponent = ({ name }) => (\n  <div>Hello, {name}</div>\n);",
-    "language": "React (JSX)",
-    "distractors": ["Angular", "Vue.js", "JavaScript"]
-  },
-  {
-    "code": "<template>\n  <div>Hello, {{ name }}</div>\n</template>\n\n<script>\nexport default {\n  data() {\n    return { name: 'World' };\n  }\n};\n</script>",
-    "language": "Vue.js",
-    "distractors": ["Angular", "React (JSX)", "Svelte"]
-  },
-  {
-    "code": "#include <stdio.h>\n\nint main() {\n   printf(\"Hello, World!\\n\");\n   return 0;\n}",
-    "language": "C",
-    "distractors": ["C++", "Java", "Go"]
-  },
-  {
-    "code": "console.log('Hello from Node.js!');",
-    "language": "Node.js",
-    "distractors": ["JavaScript (Browser)", "Deno", "Python"]
-  },
-  {
-    "code": "body {\n  font-family: Arial, sans-serif;\n  color: #333;\n}",
-    "language": "CSS",
-    "distractors": ["HTML", "JavaScript", "SCSS"]
-  },
-  {
-    "code": "<!DOCTYPE html>\n<html>\n<head>\n  <title>My Page</title>\n</head>\n<body>\n  <h1>Welcome</h1>\n</body>\n</html>",
-    "language": "HTML",
-    "distractors": ["XML", "JSX", "Markdown"]
-  },
-  {
-    "code": "a = [1, 2, 3, 4, 5]\nfor x in a:\n    if x % 2 == 0:\n        print(x)",
+    "code": "def fibonacci(n):\n    if n <= 1:\n        return n\n    return fibonacci(n-1) + fibonacci(n-2)",
     "language": "Python",
     "distractors": ["Ruby", "JavaScript", "Lua"]
   },
   {
-    "code": "interface User {\n  name: string;\n  id: number;\n}\nconst user: User = { name: 'Alice', id: 1 };",
-    "language": "TypeScript",
-    "distractors": ["JavaScript", "Java", "Flow"]
-  },
-  {
-    "code": "x <- c(10, 20, 30, 40)\nmean_val <- mean(x)\nprint(paste(\"Mean is:\", mean_val))",
-    "language": "R",
-    "distractors": ["Python", "MATLAB", "Julia"]
-  },
-  {
-    "code": "#!/bin/bash\n\nNAME=\"World\"\necho \"Hello, $NAME\"",
-    "language": "Bash",
-    "distractors": ["Python", "Perl", "Shell"]
-  },
-  {
-    "code": "String message = \"Hello from Groovy\";\nprintln message;",
-    "language": "Groovy",
-    "distractors": ["Java", "Kotlin", "Scala"]
-  },
-  {
-    "code": "import UIKit\n\nclass ViewController: UIViewController {\n    override func viewDidLoad() {\n        super.viewDidLoad()\n        print(\"View loaded\")\n    }\n}",
-    "language": "Swift",
-    "distractors": ["Objective-C", "Kotlin (Android)", "Java (Android)"]
-  },
-  {
-    "code": "val numbers = listOf(1, 2, 3)\nfor (n in numbers) {\n    println(n)\n}",
-    "language": "Kotlin",
-    "distractors": ["Java", "Scala", "Swift"]
-  },
-  {
-    "code": "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<note>\n  <to>User</to>\n  <from>System</from>\n  <heading>Reminder</heading>\n  <body>Don't forget!</body>\n</note>",
-    "language": "XML",
-    "distractors": ["HTML", "JSON", "YAML"]
-  },
-  {
-    "code": "{\n  \"name\": \"John Doe\",\n  \"age\": 30,\n  \"isStudent\": false\n}",
-    "language": "JSON",
-    "distractors": ["JavaScript", "Python Dict", "XML"]
-  },
-  {
-    "code": "module Main exposing (main)\nimport Html exposing (text)\n\nmain = text \"Hello, my friend!\"",
-    "language": "Elm",
-    "distractors": ["Haskell", "PureScript", "F#"]
-  },
-  {
-    "code": "main = putStrLn \"Hello, Maria!\"",
-    "language": "Haskell",
-    "distractors": ["Scala", "F#", "OCaml"]
-  },
-  {
-    "code": "#import <Foundation/Foundation.h>\n\nint main(int argc, const char * argv[]) {\n    @autoreleasepool {\n        NSLog(@\"Hello, Julia!\");\n    }\n    return 0;\n}",
-    "language": "Objective-C",
-    "distractors": ["C", "C++", "Swift"]
-  },
-  {
-    "code": "object Main extends App {\n  println(\"Hello, Pepito!\")\n}",
-    "language": "Scala",
-    "distractors": ["Java", "Kotlin", "Haskell"]
-  },
-  {
-    "code": "print \"Hello, Mike!\\n\";",
-    "language": "Perl",
-    "distractors": ["Ruby", "Python", "PHP"]
-  },
-  {
-    "code": "print(\"Hello!\")",
-    "language": "Lua",
-    "distractors": ["C", "JavaScript", "Ruby"]
-  },
-  {
-    "code": "void main() {\n  print('Hello buddy!');\n}",
-    "language": "Dart",
-    "distractors": ["JavaScript", "Java", "C#"]
-  },
-  {
-    "code": "A = [1 2 3; 4 5 6; 7 8 9];\ndisp(A(1,2)); % Displays 2",
-    "language": "MATLAB",
-    "distractors": ["Python (NumPy)", "R", "Julia"]
-  },
-  {
-    "code": "$Message = \"Hello, David!\"\nWrite-Host $Message",
-    "language": "PowerShell",
-    "distractors": ["Bash", "CMD Batch", "Python"]
-  },
-  {
-    "code": "defmodule Greeter do\n  def hello(name) do\n    IO.puts \"Hello, #{name}!\"\n  end\nend",
-    "language": "Elixir",
-    "distractors": ["Ruby", "Erlang", "Crystal"]
-  },
-  {
-    "code": "(defn greet [name]\n  (str \"Hello, \" name \"!\"))\n(println (greet \"Clojure\"))",
-    "language": "Clojure",
-    "distractors": ["Lisp", "Scheme", "Racket"]
-  },
-  {
-    "code": "let greet name = printfn \"Hello, %s!\" name\ngreet \"F#\"",
-    "language": "F#",
-    "distractors": ["OCaml", "Haskell", "Scala"]
-  },
-  {
-    "code": "Module HelloWorld\n    Sub Main()\n        Console.WriteLine(\"Hello friend!\")\n    End Sub\nEnd Module",
-    "language": "VB.NET",
-    "distractors": ["C#", "Visual Basic 6", "Java"]
-  },
-  {
-    "code": "CREATE TABLE Employees (\n    ID int NOT NULL PRIMARY KEY,\n    Name varchar(255),\n    Salary int\n);",
-    "language": "SQL",
-    "distractors": ["Python", "NoSQL", "Java"]
-  },
-  {
-    "code": "for i in 1..5 loop\n  dbms_output.put_line('Count: ' || i);\nend loop;",
-    "language": "PL/SQL",
-    "distractors": ["SQL", "Oracle SQL", "T-SQL"]
-  },
-  {
-    "code": "DECLARE @counter INT = 0;\nWHILE @counter < 5\nBEGIN\n    PRINT 'Counter is ' + CAST(@counter AS VARCHAR);\n    SET @counter = @counter + 1;\nEND;",
-    "language": "T-SQL",
-    "distractors": ["SQL", "PL/SQL", "MySQL"]
-  },
-  {
-    "code": "public function greet($name)\n{\n    return 'Hello, ' . $name;\n}",
-    "language": "PHP",
-    "distractors": ["JavaScript", "Python", "Hack"]
-  },
-  {
-    "code": "func add(x int, y int) int {\n    return x + y\n}\nresult := add(5, 3)",
-    "language": "Go",
-    "distractors": ["C", "Rust", "Python"]
-  },
-  {
-    "code": "let sum = [1, 2, 3].reduce((acc, val) => acc + val, 0);",
-    "language": "JavaScript",
-    "distractors": ["TypeScript", "Python", "Java"]
-  },
-  {
-    "code": "num_list = [10, 20, 30]\nnum_list.append(40)\nprint(num_list[1]) # Accesses 20",
-    "language": "Python",
-    "distractors": ["Ruby", "JavaScript", "Java"]
-  },
-  {
-    "code": "struct Point { x: i32, y: i32 }\nlet p = Point { x: 10, y: 20 };\nprintln!(\"Point: ({}, {})\", p.x, p.y);",
-    "language": "Rust",
-    "distractors": ["C++", "Go", "Swift"]
-  },
-  {
-    "code": "HashMap<String, Integer> map = new HashMap<>();\nmap.put(\"one\", 1);\nmap.put(\"two\", 2);",
+    "code": "public class Calculator {\n    private int result;\n    \n    public int add(int a, int b) {\n        return a + b;\n    }\n}",
     "language": "Java",
-    "distractors": ["C#", "Kotlin", "Scala"]
+    "distractors": ["C#", "C++", "Kotlin"]
   },
   {
-    "code": "$color-primary: #007bff;\n\n.button {\n  background-color: $color-primary;\n  color: white;\n}",
-    "language": "Sass/SCSS",
-    "distractors": ["CSS", "LESS", "Stylus"]
-  },
-  {
-    "code": "name: Build and Test\non: [push, pull_request]\njobs:\n  build:\n    runs-on: ubuntu-latest\n    steps:\n    - uses: actions/checkout@v2",
-    "language": "YAML",
-    "distractors": ["JSON", "XML", "TOML"]
-  },
-  {
-    "code": "pragma solidity ^0.8.0;\n\ncontract HelloWorld {\n    string public greet = \"Hello World\";\n}",
-    "language": "Solidity",
-    "distractors": ["JavaScript", "Python", "Vyper"]
-  },
-  {
-    "code": "(display \"Hello, chocolate!\")(newline)",
-    "language": "Scheme",
-    "distractors": ["Lisp", "Clojure", "Racket"]
-  },
-  {
-    "code": "program HelloWorld;\nbegin\n  WriteLn('Hello, World!');\nend.",
-    "language": "Pascal",
-    "distractors": ["Ada", "Fortran", "Delphi"]
-  },
-  {
-    "code": "function greet(name) {\n  return \"Hello, \" + name + \"!\";\n}",
-    "language": "JavaScript",
-    "distractors": ["Python", "Ruby", "Java"]
-  },
-  {
-    "code": "def greet(name):\n    return f\"Hello, {name}!\"",
-    "language": "Python",
-    "distractors": ["JavaScript", "C#", "PHP"]
-  },
-  {
-    "code": "public class HelloWorld {\n    public static void main(String[] args) {\n        System.out.println(\"Hello, World!\");\n    }\n}",
-    "language": "Java",
-    "distractors": ["C++", "Python", "Swift"]
-  },
-  {
-    "code": "fn main() {\n    println!(\"Hello, world!\");\n}",
-    "language": "Rust",
-    "distractors": ["Go", "C", "Haskell"]
-  },
-  {
-    "code": "package main\n\nimport \"fmt\"\n\nfunc main() {\n    fmt.Println(\"Hello, World\")\n}",
-    "language": "Go",
-    "distractors": ["Rust", "Python", "C#"]
-  },
-  {
-    "code": "<?php\n  echo \"Hello, World!\";\n?>",
-    "language": "PHP",
-    "distractors": ["JavaScript", "Perl", "Ruby"]
-  },
-  {
-    "code": "puts \"Hello, World!\"",
-    "language": "Ruby",
-    "distractors": ["Python", "Perl", "Lua"]
-  },
-  {
-    "code": "let message = \"Hello, World!\";\nprint(message)",
-    "language": "Swift",
-    "distractors": ["Kotlin", "Objective-C", "Java"]
-  },
-  {
-    "code": "fun main() {\n    println(\"Hello, World!\")\n}",
-    "language": "Kotlin",
-    "distractors": ["Java", "Swift", "Scala"]
-  },
-  {
-    "code": "using System;\n\npublic class HelloWorld\n{\n    public static void Main(string[] args)\n    {\n        Console.WriteLine (\"Hello World!\");\n    }\n}",
-    "language": "C#",
-    "distractors": ["Java", "VB.NET", "C++"]
-  },
-  {
-    "code": "#include <iostream>\n\nint main() {\n    std::cout << \"Hello, World!\" << std::endl;\n    return 0;\n}",
-    "language": "C++",
-    "distractors": ["C", "Java", "Rust"]
-  },
-  {
-    "code": "SELECT name, age FROM users WHERE country = 'USA';",
-    "language": "SQL",
-    "distractors": ["Python", "JSON", "NoSQL"]
-  },
-  {
-    "code": "<ul>\n  <li *ngFor=\"let item of items\">{{ item.name }}</li>\n</ul>",
-    "language": "Angular (HTML)",
-    "distractors": ["React (JSX)", "Vue.js", "HTML"]
-  },
-  {
-    "code": "const MyComponent = ({ name }) => (\n  <div>Hello, {name}</div>\n);",
-    "language": "React (JSX)",
-    "distractors": ["Angular", "Vue.js", "JavaScript"]
-  },
-  {
-    "code": "<template>\n  <div>Hello, {{ name }}</div>\n</template>\n\n<script>\nexport default {\n  data() {\n    return { name: 'World' };\n  }\n};\n</script>",
-    "language": "Vue.js",
-    "distractors": ["Angular", "React (JSX)", "Svelte"]
-  },
-  {
-    "code": "#include <stdio.h>\n\nint main() {\n   printf(\"Hello, World!\\n\");\n   return 0;\n}",
-    "language": "C",
-    "distractors": ["C++", "Java", "Go"]
-  },
-  {
-    "code": "console.log('Hello from France!');",
-    "language": "Node.js",
-    "distractors": ["JavaScript (Browser)", "Deno", "Python"]
-  },
-  {
-    "code": "body {\n  font-family: Arial, sans-serif;\n  color: #333;\n}",
-    "language": "CSS",
-    "distractors": ["HTML", "JavaScript", "SCSS"]
-  },
-  {
-    "code": "<!DOCTYPE html>\n<html>\n<head>\n  <title>My Page</title>\n</head>\n<body>\n  <h1>Welcome</h1>\n</body>\n</html>",
-    "language": "HTML",
-    "distractors": ["XML", "JSX", "Markdown"]
-  },
-  {
-    "code": "a = [1, 2, 3, 4, 5]\nfor x in a:\n    if x % 2 == 0:\n        print(x)",
-    "language": "Python",
-    "distractors": ["Ruby", "JavaScript", "Lua"]
-  },
-  {
-    "code": "interface User {\n  name: string;\n  id: number;\n}\nconst user: User = { name: 'Alice', id: 1 };",
-    "language": "TypeScript",
-    "distractors": ["JavaScript", "Java", "Flow"]
-  },
-  {
-    "code": "x <- c(10, 20, 30, 40)\nmean_val <- mean(x)\nprint(paste(\"Mean is:\", mean_val))",
-    "language": "R",
-    "distractors": ["Python", "MATLAB", "Julia"]
-  },
-  {
-    "code": "#!/bin/bash\n\nNAME=\"World\"\necho \"Hello, $NAME\"",
-    "language": "Bash",
-    "distractors": ["Python", "Perl", "Shell"]
-  },
-  {
-    "code": "String message = \"Hello from Germany\";\nprintln message;",
-    "language": "Groovy",
-    "distractors": ["Java", "Kotlin", "Scala"]
-  },
-  {
-    "code": "import UIKit\n\nclass ViewController: UIViewController {\n    override func viewDidLoad() {\n        super.viewDidLoad()\n        print(\"View loaded\")\n    }\n}",
-    "language": "Swift",
-    "distractors": ["Objective-C", "Kotlin (Android)", "Java (Android)"]
-  },
-  {
-    "code": "val numbers = listOf(1, 2, 3)\nfor (n in numbers) {\n    println(n)\n}",
-    "language": "Kotlin",
-    "distractors": ["Java", "Scala", "Swift"]
-  },
-  {
-    "code": "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<note>\n  <to>User</to>\n  <from>System</from>\n  <heading>Reminder</heading>\n  <body>Don't forget!</body>\n</note>",
-    "language": "XML",
-    "distractors": ["HTML", "JSON", "YAML"]
-  },
-  {
-    "code": "{\n  \"name\": \"John Doe\",\n  \"age\": 30,\n  \"isStudent\": false\n}",
-    "language": "JSON",
-    "distractors": ["JavaScript", "Python Dict", "XML"]
-  },
-  {
-    "code": "module Main exposing (main)\nimport Html exposing (text)\n\nmain = text \"Hello guys!\"",
-    "language": "Elm",
-    "distractors": ["Haskell", "PureScript", "F#"]
-  },
-  {
-    "code": "main = putStrLn \"Hello buddy!\"",
-    "language": "Haskell",
-    "distractors": ["Scala", "F#", "OCaml"]
-  },
-  {
-    "code": "#import <Foundation/Foundation.h>\n\nint main(int argc, const char * argv[]) {\n    @autoreleasepool {\n        NSLog(@\"Hello noob!\");\n    }\n    return 0;\n}",
-    "language": "Objective-C",
-    "distractors": ["C", "C++", "Swift"]
-  },
-  {
-    "code": "object Main extends App {\n  println(\"Hello, Oliver!\")\n}",
-    "language": "Scala",
-    "distractors": ["Java", "Kotlin", "Haskell"]
-  },
-  {
-    "code": "void main() {\n  print('Hello, Yan!');\n}",
-    "language": "Dart",
-    "distractors": ["JavaScript", "Java", "C#"]
-  },
-  {
-    "code": "A = [1 2 3; 4 5 6; 7 8 9];\ndisp(A(1,2)); % Displays 2",
-    "language": "MATLAB",
-    "distractors": ["Python (NumPy)", "R", "Julia"]
-  },
-  {
-    "code": "$Message = \"Hello fellow developer!\"\nWrite-Host $Message",
-    "language": "PowerShell",
-    "distractors": ["Bash", "CMD Batch", "Python"]
-  },
-  {
-    "code": "defmodule Greeter do\n  def hello(name) do\n    IO.puts \"Hello, #{name}!\"\n  end\nend",
-    "language": "Elixir",
-    "distractors": ["Ruby", "Erlang", "Crystal"]
-  },
-  {
-    "code": "(defn greet [name]\n  (str \"Hello, \" name \"!\"))\n(println (greet \"my friend\"))",
-    "language": "Clojure",
-    "distractors": ["Lisp", "Scheme", "Racket"]
-  },
-  {
-    "code": "let greet name = printfn \"Hello, %s!\" name\ngreet \"C#\"",
-    "language": "F#",
-    "distractors": ["OCaml", "Haskell", "Scala"]
-  },
-  {
-    "code": "CREATE TABLE Employees (\n    ID int NOT NULL PRIMARY KEY,\n    Name varchar(255),\n    Salary int\n);",
-    "language": "SQL",
-    "distractors": ["Python", "NoSQL", "Java"]
-  },
-  {
-    "code": "for i in 1..5 loop\n  dbms_output.put_line('Count: ' || i);\nend loop;",
-    "language": "PL/SQL",
-    "distractors": ["SQL", "Oracle SQL", "T-SQL"]
-  },
-  {
-    "code": "DECLARE @counter INT = 0;\nWHILE @counter < 5\nBEGIN\n    PRINT 'Counter is ' + CAST(@counter AS VARCHAR);\n    SET @counter = @counter + 1;\nEND;",
-    "language": "T-SQL",
-    "distractors": ["SQL", "PL/SQL", "MySQL"]
-  },
-  {
-    "code": "public function greet($name)\n{\n    return 'Hello, ' . $name;\n}",
-    "language": "PHP",
-    "distractors": ["JavaScript", "Python", "Hack"]
-  },
-  {
-    "code": "func add(x int, y int) int {\n    return x + y\n}\nresult := add(5, 3)",
-    "language": "Go",
-    "distractors": ["C", "Rust", "Python"]
-  },
-  {
-    "code": "let sum = [1, 2, 3].reduce((acc, val) => acc + val, 0);",
-    "language": "JavaScript",
-    "distractors": ["TypeScript", "Python", "Java"]
-  },
-  {
-    "code": "num_list = [10, 20, 30]\nnum_list.append(40)\nprint(num_list[1]) # Accesses 20",
-    "language": "Python",
-    "distractors": ["Ruby", "JavaScript", "Java"]
-  },
-  {
-    "code": "struct Point { x: i32, y: i32 }\nlet p = Point { x: 10, y: 20 };\nprintln!(\"Point: ({}, {})\", p.x, p.y);",
-    "language": "Rust",
-    "distractors": ["C++", "Go", "Swift"]
-  },
-  {
-    "code": "HashMap<String, Integer> map = new HashMap<>();\nmap.put(\"one\", 1);\nmap.put(\"two\", 2);",
-    "language": "Java",
-    "distractors": ["C#", "Kotlin", "Scala"]
-  },
-  {
-    "code": "defmacro unless(condition, do: block) do\n  quote do\n    if !unquote(condition), do: unquote(block)\n  end\nend",
-    "language": "Elixir",
-    "distractors": ["Ruby", "Crystal", "Erlang"]
-  },
-  {
-    "code": "data Tree a = Empty | Node a (Tree a) (Tree a)\n\ninsert :: (Ord a) => a -> Tree a -> Tree a\ninsert x Empty = Node x Empty Empty\ninsert x (Node a left right)\n  | x == a = Node x left right\n  | x < a  = Node a (insert x left) right\n  | x > a  = Node a left (insert x right)",
-    "language": "Haskell",
-    "distractors": ["OCaml", "F#", "Elm"]
-  },
-  {
-    "code": "#!/usr/bin/env awk -f\nBEGIN { FS = \",\" }\n/^[0-9]/ {\n    sum += $3\n    count++\n}\nEND { print \"Average:\", sum/count }",
-    "language": "AWK",
-    "distractors": ["Sed", "Bash", "Perl"]
-  },
-  {
-    "code": "import asyncio\n\nasync def fetch_data(url):\n    async with aiohttp.ClientSession() as session:\n        async with session.get(url) as response:\n            return await response.json()\n\nasync def main():\n    tasks = [fetch_data(url) for url in urls]\n    results = await asyncio.gather(*tasks)",
-    "language": "Python",
-    "distractors": ["JavaScript", "C#", "Rust"]
-  },
-  {
-    "code": "type User = {\n  name: string,\n  age: number,\n  email?: string\n}\n\nconst users: User[] = []\nconst filterAdults = (users: User[]): User[] => \n  users.filter(user => user.age >= 18)",
-    "language": "TypeScript",
-    "distractors": ["JavaScript", "Flow", "ReScript"]
-  },
-  {
-    "code": "class Singleton {\n  private static $instance = null;\n  \n  private function __construct() {}\n  \n  public static function getInstance() {\n    if (self::$instance === null) {\n      self::$instance = new self();\n    }\n    return self::$instance;\n  }\n}",
-    "language": "PHP",
-    "distractors": ["Java", "C#", "JavaScript"]
-  },
-  {
-    "code": "import Foundation\n\nstruct ContentView: View {\n    @State private var isPresented = false\n    \n    var body: some View {\n        Button(\"Show Modal\") {\n            isPresented = true\n        }\n        .sheet(isPresented: $isPresented) {\n            Text(\"Modal Content\")\n        }\n    }\n}",
-    "language": "SwiftUI",
-    "distractors": ["Swift", "Kotlin Compose", "Flutter"]
-  },
-  {
-    "code": "use tokio::net::TcpListener;\nuse tokio::io::{AsyncReadExt, AsyncWriteExt};\n\n#[tokio::main]\nasync fn main() -> Result<(), Box<dyn std::error::Error>> {\n    let listener = TcpListener::bind(\"127.0.0.1:8080\").await?;\n    \n    loop {\n        let (mut socket, _) = listener.accept().await?;\n        \n        tokio::spawn(async move {\n            let mut buf = [0; 1024];\n            socket.read(&mut buf).await.unwrap();\n            socket.write_all(b\"HTTP/1.1 200 OK\\r\\n\\r\\n\").await.unwrap();\n        });\n    }\n}",
+    "code": "fn binary_search<T: Ord>(arr: &[T], target: &T) -> Option<usize> {\n    let mut left = 0;\n    let mut right = arr.len();\n    \n    while left < right {\n        let mid = left + (right - left) / 2;\n        match arr[mid].cmp(target) {\n            std::cmp::Ordering::Equal => return Some(mid),\n            std::cmp::Ordering::Less => left = mid + 1,\n            std::cmp::Ordering::Greater => right = mid,\n        }\n    }\n    None\n}",
     "language": "Rust",
     "distractors": ["Go", "C++", "Zig"]
   },
   {
-    "code": "sealed class Result<out T> {\n    data class Success<T>(val data: T) : Result<T>()\n    data class Error(val exception: Throwable) : Result<Nothing>()\n}\n\nfun <T> Result<T>.getOrNull(): T? = when (this) {\n    is Result.Success -> data\n    is Result.Error -> null\n}",
-    "language": "Kotlin",
-    "distractors": ["Scala", "Swift", "Java"]
-  },
-  {
-    "code": "import numpy as np\nfrom numba import jit\n\n@jit(nopython=True)\ndef mandelbrot(c, max_iter):\n    z = 0\n    for n in range(max_iter):\n        if abs(z) > 2:\n            return n\n        z = z*z + c\n    return max_iter",
-    "language": "Python",
-    "distractors": ["Julia", "MATLAB", "NumPy"]
-  },
-  {
-    "code": "package main\n\nimport (\n    \"context\"\n    \"time\"\n)\n\nfunc worker(ctx context.Context, jobs <-chan int, results chan<- int) {\n    for {\n        select {\n        case job := <-jobs:\n            results <- job * 2\n        case <-ctx.Done():\n            return\n        }\n    }\n}",
+    "code": "package main\n\nimport \"fmt\"\n\nfunc fibonacci(n int) int {\n    if n <= 1 {\n        return n\n    }\n    return fibonacci(n-1) + fibonacci(n-2)\n}\n\nfunc main() {\n    fmt.Println(fibonacci(10))\n}",
     "language": "Go",
-    "distractors": ["Rust", "C", "Zig"]
+    "distractors": ["Rust", "C", "Swift"]
   },
   {
-    "code": "defmodule GenServer.Example do\n  use GenServer\n\n  def start_link(initial_state) do\n    GenServer.start_link(__MODULE__, initial_state, name: __MODULE__)\n  end\n\n  def handle_call({:get}, _from, state) do\n    {:reply, state, state}\n  end\n\n  def handle_cast({:set, new_state}, _state) do\n    {:noreply, new_state}\n  end\nend",
-    "language": "Elixir",
-    "distractors": ["Erlang", "Ruby", "Crystal"]
+    "code": "<?php\nclass User {\n    private $name;\n    private $email;\n    \n    public function __construct($name, $email) {\n        $this->name = $name;\n        $this->email = $email;\n    }\n    \n    public function getName() {\n        return $this->name;\n    }\n}\n?>",
+    "language": "PHP",
+    "distractors": ["JavaScript", "Python", "Ruby"]
   },
   {
-    "code": "class Component extends React.Component {\n  componentDidMount() {\n    this.interval = setInterval(() => {\n      this.setState(prevState => ({\n        count: prevState.count + 1\n      }));\n    }, 1000);\n  }\n  \n  componentWillUnmount() {\n    clearInterval(this.interval);\n  }\n}",
-    "language": "React (JSX)",
-    "distractors": ["JavaScript", "TypeScript", "Vue.js"]
+    "code": "class Person\n  attr_accessor :name, :age\n  \n  def initialize(name, age)\n    @name = name\n    @age = age\n  end\n  \n  def adult?\n    @age >= 18\n  end\nend",
+    "language": "Ruby",
+    "distractors": ["Python", "Crystal", "Elixir"]
   },
   {
-    "code": "CREATE OR REPLACE FUNCTION calculate_tax(salary DECIMAL(10,2))\nRETURNS DECIMAL(10,2)\nDETERMINISTIC\nBEGIN\n    DECLARE tax_rate DECIMAL(3,2);\n    \n    CASE \n        WHEN salary <= 50000 THEN SET tax_rate = 0.10;\n        WHEN salary <= 100000 THEN SET tax_rate = 0.20;\n        ELSE SET tax_rate = 0.30;\n    END CASE;\n    \n    RETURN salary * tax_rate;\nEND",
-    "language": "MySQL",
-    "distractors": ["PostgreSQL", "SQL Server", "Oracle"]
-  },
-  {
-    "code": "import Control.Monad.State\n\ntype Stack = [Int]\n\npop :: State Stack Int\npop = do\n    (x:xs) <- get\n    put xs\n    return x\n\npush :: Int -> State Stack ()\npush x = modify (x:)",
-    "language": "Haskell",
-    "distractors": ["OCaml", "F#", "PureScript"]
-  },
-  {
-    "code": "import kotlinx.coroutines.*\n\nsuspend fun fetchUser(id: String): User = withContext(Dispatchers.IO) {\n    delay(1000) // Simulate network call\n    User(id, \"John Doe\")\n}\n\nfun main() = runBlocking {\n    val users = (1..10).map { async { fetchUser(\"user$it\") } }\n    users.awaitAll().forEach { println(it) }\n}",
-    "language": "Kotlin",
-    "distractors": ["Java", "Scala", "C#"]
-  },
-  {
-    "code": "WITH RECURSIVE fibonacci(n, a, b) AS (\n    SELECT 1, 0, 1\n    UNION ALL\n    SELECT n+1, b, a+b FROM fibonacci WHERE n < 10\n)\nSELECT n, a as fibonacci_number FROM fibonacci;",
-    "language": "SQL",
-    "distractors": ["PostgreSQL", "MySQL", "Oracle"]
-  },
-  {
-    "code": "actor Counter {\n    private var count = 0\n    \n    func increment() {\n        count += 1\n    }\n    \n    func getCount() -> Int {\n        return count\n    }\n}\n\nlet counter = Counter()\nawait counter.increment()",
+    "code": "struct Point {\n    let x: Double\n    let y: Double\n    \n    func distance(to other: Point) -> Double {\n        let dx = x - other.x\n        let dy = y - other.y\n        return sqrt(dx*dx + dy*dy)\n    }\n}",
     "language": "Swift",
-    "distractors": ["Kotlin", "C#", "Scala"]
+    "distractors": ["Kotlin", "Rust", "C#"]
   },
   {
-    "code": "module.exports = {\n  plugins: [\n    require('tailwindcss'),\n    require('autoprefixer'),\n    ...(process.env.NODE_ENV === 'production'\n      ? [require('cssnano')({ preset: 'default' })]\n      : [])\n  ]\n}",
-    "language": "JavaScript",
-    "distractors": ["JSON", "Node.js", "TypeScript"]
+    "code": "data class User(\n    val id: Long,\n    val name: String,\n    val email: String\n) {\n    fun isValidEmail(): Boolean {\n        return email.contains(\"@\") && email.contains(\".\")\n    }\n}",
+    "language": "Kotlin",
+    "distractors": ["Java", "Scala", "Swift"]
   },
   {
-    "code": "using System.Text.Json;\n\nvar options = new JsonSerializerOptions\n{\n    PropertyNamingPolicy = JsonNamingPolicy.CamelCase,\n    WriteIndented = true\n};\n\nvar json = JsonSerializer.Serialize(person, options);\nvar deserializedPerson = JsonSerializer.Deserialize<Person>(json, options);",
+    "code": "using System.Collections.Generic;\n\npublic class Repository<T> where T : class\n{\n    private readonly List<T> _items = new();\n    \n    public void Add(T item) => _items.Add(item);\n    \n    public T? Find(Func<T, bool> predicate) => \n        _items.FirstOrDefault(predicate);\n}",
     "language": "C#",
     "distractors": ["Java", "F#", "VB.NET"]
   },
   {
-    "code": "const schema = z.object({\n  name: z.string().min(1),\n  email: z.string().email(),\n  age: z.number().int().positive(),\n  tags: z.array(z.string()).optional()\n});\n\ntype User = z.infer<typeof schema>;\n\nconst result = schema.safeParse(userData);",
-    "language": "TypeScript",
-    "distractors": ["JavaScript", "Flow", "ReScript"]
+    "code": "#include <vector>\n#include <algorithm>\n\ntemplate<typename T>\nvoid quickSort(std::vector<T>& arr, int low, int high) {\n    if (low < high) {\n        int pi = partition(arr, low, high);\n        quickSort(arr, low, pi - 1);\n        quickSort(arr, pi + 1, high);\n    }\n}",
+    "language": "C++",
+    "distractors": ["C", "Rust", "Java"]
   },
   {
-    "code": "trait Drawable {\n    fn draw(&self);\n}\n\nstruct Circle { radius: f64 }\nstruct Rectangle { width: f64, height: f64 }\n\nimpl Drawable for Circle {\n    fn draw(&self) {\n        println!(\"Drawing circle with radius {}\", self.radius);\n    }\n}\n\nfn render(shape: &dyn Drawable) {\n    shape.draw();\n}",
-    "language": "Rust",
-    "distractors": ["C++", "Go", "Swift"]
+    "code": "SELECT u.name, COUNT(o.id) as order_count\nFROM users u\nLEFT JOIN orders o ON u.id = o.user_id\nWHERE u.created_at >= '2023-01-01'\nGROUP BY u.id, u.name\nHAVING COUNT(o.id) > 5\nORDER BY order_count DESC;",
+    "language": "SQL",
+    "distractors": ["PostgreSQL", "MySQL", "NoSQL"]
   },
   {
-    "code": "defprotocol Enumerable do\n  def count(collection)\n  def member?(collection, value)\nend\n\ndefimpl Enumerable, for: List do\n  def count(list), do: length(list)\n  def member?(list, value), do: value in list\nend\n\ndefimpl Enumerable, for: Map do\n  def count(map), do: map_size(map)\n  def member?(map, {key, value}), do: Map.get(map, key) == value\nend",
-    "language": "Elixir",
-    "distractors": ["Ruby", "Crystal", "Erlang"]
+    "code": "<div class=\"container\">\n  <h2 *ngIf=\"showTitle\">{{ pageTitle }}</h2>\n  <ul>\n    <li *ngFor=\"let item of items; trackBy: trackByFn\">\n      {{ item.name }} - {{ item.price | currency }}\n    </li>\n  </ul>\n</div>",
+    "language": "Angular",
+    "distractors": ["Vue.js", "React", "Svelte"]
   },
   {
-    "code": "import { createSlice, PayloadAction } from '@reduxjs/toolkit'\n\ninterface CounterState {\n  value: number\n}\n\nconst counterSlice = createSlice({\n  name: 'counter',\n  initialState: { value: 0 } as CounterState,\n  reducers: {\n    increment: (state) => {\n      state.value += 1\n    },\n    decrement: (state) => {\n      state.value -= 1\n    },\n    incrementByAmount: (state, action: PayloadAction<number>) => {\n      state.value += action.payload\n    }\n  }\n})",
-    "language": "TypeScript",
-    "distractors": ["JavaScript", "React", "Redux"]
+    "code": "const UserCard = ({ user, onEdit, onDelete }) => {\n  const [isEditing, setIsEditing] = useState(false);\n  \n  return (\n    <div className=\"user-card\">\n      <h3>{user.name}</h3>\n      <p>{user.email}</p>\n      <button onClick={() => onEdit(user.id)}>\n        Edit\n      </button>\n    </div>\n  );\n};",
+    "language": "React",
+    "distractors": ["Vue.js", "Angular", "JavaScript"]
   },
   {
-    "code": "#[derive(Debug, Serialize, Deserialize)]\nstruct Config {\n    host: String,\n    port: u16,\n    database: DatabaseConfig,\n}\n\n#[derive(Debug, Serialize, Deserialize)]\nstruct DatabaseConfig {\n    url: String,\n    max_connections: u32,\n}\n\nfn load_config() -> Result<Config, Box<dyn std::error::Error>> {\n    let config_str = std::fs::read_to_string(\"config.toml\")?;\n    let config: Config = toml::from_str(&config_str)?;\n    Ok(config)\n}",
-    "language": "Rust",
-    "distractors": ["Go", "C++", "Zig"]
+    "code": "<template>\n  <div class=\"todo-list\">\n    <input \n      v-model=\"newTodo\" \n      @keyup.enter=\"addTodo\"\n      placeholder=\"Add new todo\"\n    />\n    <ul>\n      <li v-for=\"todo in filteredTodos\" :key=\"todo.id\">\n        {{ todo.text }}\n      </li>\n    </ul>\n  </div>\n</template>\n\n<script setup>\nimport { ref, computed } from 'vue'\n\nconst newTodo = ref('')\nconst todos = ref([])\n</script>",
+    "language": "Vue.js",
+    "distractors": ["Angular", "React", "Svelte"]
   },
   {
-    "code": "open System\nopen System.Threading.Tasks\n\nlet asyncComputation = async {\n    let! result1 = async { return 42 }\n    let! result2 = async { return \"Hello\" }\n    return sprintf \"%s %d\" result2 result1\n}\n\nlet result = asyncComputation |> Async.RunSynchronously",
-    "language": "F#",
-    "distractors": ["OCaml", "Haskell", "Scala"]
+    "code": "#include <stdio.h>\n#include <stdlib.h>\n\nint* createArray(int size) {\n    int* arr = malloc(size * sizeof(int));\n    for (int i = 0; i < size; i++) {\n        arr[i] = i * i;\n    }\n    return arr;\n}",
+    "language": "C",
+    "distractors": ["C++", "Rust", "Go"]
   },
   {
-    "code": "class Metaclass(type):\n    def __new__(cls, name, bases, attrs):\n        attrs['class_id'] = f\"{name.lower()}_{hash(name) % 1000}\"\n        return super().__new__(cls, name, bases, attrs)\n    \n    def __call__(cls, *args, **kwargs):\n        instance = super().__call__(*args, **kwargs)\n        print(f\"Created instance of {cls.__name__}\")\n        return instance\n\nclass MyClass(metaclass=Metaclass):\n    pass",
+    "code": "const express = require('express');\nconst app = express();\n\napp.use(express.json());\n\napp.get('/api/users/:id', async (req, res) => {\n  try {\n    const user = await User.findById(req.params.id);\n    res.json(user);\n  } catch (error) {\n    res.status(500).json({ error: error.message });\n  }\n});",
+    "language": "Node.js",
+    "distractors": ["JavaScript", "Deno", "TypeScript"]
+  },
+  {
+    "code": ".card {\n  display: grid;\n  grid-template-columns: 1fr 2fr;\n  gap: 1rem;\n  padding: 2rem;\n  border-radius: 0.5rem;\n  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);\n  transition: transform 0.2s ease;\n}\n\n.card:hover {\n  transform: translateY(-2px);\n}",
+    "language": "CSS",
+    "distractors": ["SCSS", "Stylus", "Less"]
+  },
+  {
+    "code": "<!DOCTYPE html>\n<html lang=\"en\">\n<head>\n  <meta charset=\"UTF-8\">\n  <meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\">\n  <title>Dashboard</title>\n</head>\n<body>\n  <nav aria-label=\"Main navigation\">\n    <ul role=\"list\">\n      <li><a href=\"/home\">Home</a></li>\n      <li><a href=\"/about\">About</a></li>\n    </ul>\n  </nav>\n</body>\n</html>",
+    "language": "HTML",
+    "distractors": ["XML", "XHTML", "JSX"]
+  },
+  {
+    "code": "numbers = [1, 2, 3, 4, 5]\nsquared = [x**2 for x in numbers if x % 2 == 0]\nprint(f\"Squared even numbers: {squared}\")\n\ndata = {'name': 'Alice', 'age': 30}\nfor key, value in data.items():\n    print(f\"{key}: {value}\")",
     "language": "Python",
-    "distractors": ["Ruby", "JavaScript", "Java"]
+    "distractors": ["Ruby", "JavaScript", "Perl"]
   },
   {
-    "code": "import { z } from 'zod'\nimport { procedure, router } from './trpc'\n\nconst appRouter = router({\n  getUser: procedure\n    .input(z.object({ id: z.string() }))\n    .query(async ({ input }) => {\n      return await db.user.findUnique({\n        where: { id: input.id }\n      })\n    }),\n  \n  createUser: procedure\n    .input(z.object({ \n      name: z.string(), \n      email: z.string().email() \n    }))\n    .mutation(async ({ input }) => {\n      return await db.user.create({ data: input })\n    })\n})",
+    "code": "interface ApiResponse<T> {\n  data: T;\n  status: number;\n  message?: string;\n}\n\nclass ApiClient {\n  async get<T>(url: string): Promise<ApiResponse<T>> {\n    const response = await fetch(url);\n    return response.json();\n  }\n}",
     "language": "TypeScript",
-    "distractors": ["JavaScript", "GraphQL", "REST API"]
+    "distractors": ["JavaScript", "Flow", "Dart"]
   },
   {
-    "code": "class Person\n  getter name : String\n  getter age : Int32\n  \n  def initialize(@name : String, @age : Int32)\n  end\n  \n  def adult?\n    @age >= 18\n  end\n  \n  def greet(other : Person)\n    puts \"Hello #{other.name}, I'm #{@name}\"\n  end\nend\n\nperson = Person.new(\"Alice\", 25)\nputs person.adult?",
-    "language": "Crystal",
-    "distractors": ["Ruby", "Swift", "Kotlin"]
+    "code": "library(dplyr)\nlibrary(ggplot2)\n\ndata %>%\n  filter(age >= 18) %>%\n  group_by(category) %>%\n  summarise(\n    mean_score = mean(score, na.rm = TRUE),\n    count = n()\n  ) %>%\n  ggplot(aes(x = category, y = mean_score)) +\n  geom_col() +\n  labs(title = \"Average Scores by Category\")",
+    "language": "R",
+    "distractors": ["Python", "MATLAB", "Julia"]
   },
   {
-    "code": "import cats.effect._\nimport cats.implicits._\n\nobject IOExample extends IOApp {\n  def computation(n: Int): IO[Int] = IO {\n    println(s\"Computing $n\")\n    n * n\n  }\n  \n  def run(args: List[String]): IO[ExitCode] = {\n    val tasks = (1 to 5).toList.map(computation)\n    tasks.parSequence.map(_.sum).map { result =>\n      println(s\"Sum of squares: $result\")\n      ExitCode.Success\n    }\n  }\n}",
-    "language": "Scala",
-    "distractors": ["Haskell", "F#", "Clojure"]
+    "code": "#!/bin/bash\n\nfor file in *.txt; do\n  if [[ -f \"$file\" ]]; then\n    echo \"Processing $file\"\n    wc -l \"$file\" >> line_counts.txt\n  fi\ndone\n\necho \"Total files processed: $(ls *.txt | wc -l)\"",
+    "language": "Bash",
+    "distractors": ["Zsh", "PowerShell", "Fish"]
   },
   {
-    "code": "import scrapy\nfrom scrapy import Request\n\nclass ProductSpider(scrapy.Spider):\n    name = 'products'\n    start_urls = ['https://example.com/products']\n    \n    def parse(self, response):\n        for product in response.css('.product'):\n            yield {\n                'name': product.css('.name::text').get(),\n                'price': product.css('.price::text').re_first(r'\\d+\\.\\d+')\n            }\n        \n        next_page = response.css('.next::attr(href)').get()\n        if next_page:\n            yield Request(url=next_page, callback=self.parse)",
-    "language": "Python",
-    "distractors": ["BeautifulSoup", "Selenium", "Requests"]
+    "code": "@Grab('org.apache.commons:commons-lang3:3.12.0')\nimport org.apache.commons.lang3.StringUtils\n\ndef processText(String input) {\n    return StringUtils.capitalize(\n        StringUtils.reverse(input.toLowerCase())\n    )\n}\n\ndefaultTasks = ['build', 'test']\ndefaultTasks.each { task ->\n    println \"Executing: ${task}\"\n}",
+    "language": "Groovy",
+    "distractors": ["Java", "Scala", "Kotlin"]
   },
   {
-    "code": "extension Array where Element: Comparable {\n    func quicksorted() -> [Element] {\n        guard count > 1 else { return self }\n        \n        let pivot = self[count / 2]\n        let less = filter { $0 < pivot }\n        let equal = filter { $0 == pivot }\n        let greater = filter { $0 > pivot }\n        \n        return less.quicksorted() + equal + greater.quicksorted()\n    }\n}",
+    "code": "import Foundation\n\nclass NetworkManager: ObservableObject {\n    @Published var isLoading = false\n    \n    func fetchData() async throws -> [User] {\n        isLoading = true\n        defer { isLoading = false }\n        \n        let url = URL(string: \"https://api.example.com/users\")!\n        let (data, _) = try await URLSession.shared.data(from: url)\n        return try JSONDecoder().decode([User].self, from: data)\n    }\n}",
     "language": "Swift",
-    "distractors": ["Kotlin", "C#", "Rust"]
+    "distractors": ["Objective-C", "Kotlin", "Dart"]
   },
   {
-    "code": "import Data.Maybe (fromMaybe)\nimport Control.Applicative ((<|>))\n\ndata JSON = JNull | JBool Bool | JNumber Double | JString String\n          | JArray [JSON] | JObject [(String, JSON)]\n\nparseJSON :: String -> Maybe JSON\nparseJSON \"null\" = Just JNull\nparseJSON \"true\" = Just (JBool True)\nparseJSON \"false\" = Just (JBool False)\nparseJSON s = parseNumber s <|> parseString s\n  where\n    parseNumber s = JNumber <$> readMaybe s\n    parseString s = if head s == '\"' && last s == '\"'\n                   then Just (JString $ init $ tail s)\n                   else Nothing",
+    "code": "suspend fun fetchUserData(userId: String): Result<User> {\n    return withContext(Dispatchers.IO) {\n        try {\n            val response = apiService.getUser(userId)\n            if (response.isSuccessful) {\n                Result.success(response.body()!!)\n            } else {\n                Result.failure(ApiException(response.message()))\n            }\n        } catch (e: Exception) {\n            Result.failure(e)\n        }\n    }\n}",
+    "language": "Kotlin",
+    "distractors": ["Java", "Scala", "C#"]
+  },
+  {
+    "code": "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<configuration>\n  <appSettings>\n    <add key=\"DatabaseConnection\" value=\"Server=localhost;Database=MyApp\" />\n    <add key=\"EnableLogging\" value=\"true\" />\n    <add key=\"MaxRetries\" value=\"3\" />\n  </appSettings>\n  <system.web>\n    <compilation debug=\"false\" targetFramework=\"4.8\" />\n  </system.web>\n</configuration>",
+    "language": "XML",
+    "distractors": ["HTML", "XAML", "JSON"]
+  },
+  {
+    "code": "{\n  \"name\": \"my-project\",\n  \"version\": \"1.0.0\",\n  \"scripts\": {\n    \"start\": \"node server.js\",\n    \"build\": \"webpack --mode production\",\n    \"test\": \"jest\"\n  },\n  \"dependencies\": {\n    \"express\": \"^4.18.0\",\n    \"mongoose\": \"^6.3.0\"\n  }\n}",
+    "language": "JSON",
+    "distractors": ["JavaScript", "YAML", "TOML"]
+  },
+  {
+    "code": "module Calculator exposing (add, multiply, divide)\n\nadd : Float -> Float -> Float\nadd x y = x + y\n\nmultiply : Float -> Float -> Float\nmultiply x y = x * y\n\ndivide : Float -> Float -> Maybe Float\ndivide x y =\n    if y == 0 then\n        Nothing\n    else\n        Just (x / y)",
+    "language": "Elm",
+    "distractors": ["Haskell", "PureScript", "F#"]
+  },
+  {
+    "code": "factorial :: Integer -> Integer\nfactorial 0 = 1\nfactorial n = n * factorial (n - 1)\n\nfibonacci :: Integer -> Integer\nfibonacci n = fib n 0 1\n  where\n    fib 0 a _ = a\n    fib n a b = fib (n-1) b (a+b)",
     "language": "Haskell",
     "distractors": ["OCaml", "F#", "Elm"]
   },
   {
-    "code": "import { Application, Router } from \"https://deno.land/x/oak/mod.ts\";\n\nconst router = new Router();\n\nrouter\n  .get(\"/\", (ctx) => {\n    ctx.response.body = \"Hello Deno!\";\n  })\n  .get(\"/api/users/:id\", (ctx) => {\n    const id = ctx.params.id;\n    ctx.response.body = { id, name: `User ${id}` };\n  });\n\nconst app = new Application();\napp.use(router.routes());\napp.use(router.allowedMethods());\n\nawait app.listen({ port: 8000 });",
-    "language": "Deno",
-    "distractors": ["Node.js", "TypeScript", "JavaScript"]
+    "code": "#import <Foundation/Foundation.h>\n\n@interface Calculator : NSObject\n- (NSInteger)addNumber:(NSInteger)a toNumber:(NSInteger)b;\n- (NSInteger)multiplyNumber:(NSInteger)a byNumber:(NSInteger)b;\n@end\n\n@implementation Calculator\n- (NSInteger)addNumber:(NSInteger)a toNumber:(NSInteger)b {\n    return a + b;\n}\n@end",
+    "language": "Objective-C",
+    "distractors": ["C", "C++", "Swift"]
   },
   {
-    "code": "proc bubble_sort[T](arr: var seq[T]) =\n  let n = arr.len\n  for i in 0..<n:\n    for j in 0..<(n-i-1):\n      if arr[j] > arr[j+1]:\n        swap(arr[j], arr[j+1])\n\nvar numbers = @[64, 34, 25, 12, 22, 11, 90]\nbubble_sort(numbers)\necho numbers",
-    "language": "Nim",
-    "distractors": ["Crystal", "D", "Zig"]
+    "code": "object Calculator {\n  def factorial(n: Int): BigInt = {\n    @annotation.tailrec\n    def loop(acc: BigInt, remaining: Int): BigInt = {\n      if (remaining <= 1) acc\n      else loop(acc * remaining, remaining - 1)\n    }\n    loop(1, n)\n  }\n  \n  def fibonacci(n: Int): Stream[BigInt] = {\n    def fib(a: BigInt, b: BigInt): Stream[BigInt] = \n      a #:: fib(b, a + b)\n    fib(0, 1).take(n)\n  }\n}",
+    "language": "Scala",
+    "distractors": ["Java", "Kotlin", "F#"]
   },
   {
-    "code": "mutation CreateUser($input: CreateUserInput!) {\n  createUser(input: $input) {\n    user {\n      id\n      name\n      email\n      createdAt\n    }\n    errors {\n      field\n      message\n    }\n  }\n}\n\nfragment UserFields on User {\n  id\n  name\n  email\n  profile {\n    avatar\n    bio\n  }\n}",
-    "language": "GraphQL",
-    "distractors": ["JSON", "REST API", "TypeScript"]
+    "code": "my @numbers = (1, 2, 3, 4, 5);\nmy @squared = map { $_ ** 2 } @numbers;\n\nforeach my $num (@squared) {\n    print \"$num\\n\";\n}\n\nmy %hash = (\n    'name' => 'John',\n    'age' => 30\n);\n\nprint \"Name: $hash{'name'}\\n\";",
+    "language": "Perl",
+    "distractors": ["Ruby", "PHP", "Python"]
   },
   {
-    "code": "import { defineConfig } from 'vite'\nimport { sveltekit } from '@sveltejs/kit/vite'\n\nexport default defineConfig({\n  plugins: [sveltekit()],\n  server: {\n    host: '0.0.0.0',\n    port: 3000\n  },\n  build: {\n    target: 'es2020',\n    sourcemap: true\n  },\n  optimizeDeps: {\n    include: ['lodash-es']\n  }\n})",
-    "language": "JavaScript",
-    "distractors": ["TypeScript", "JSON", "Node.js"]
+    "code": "local function quicksort(arr, low, high)\n    if low < high then\n        local pi = partition(arr, low, high)\n        quicksort(arr, low, pi - 1)\n        quicksort(arr, pi + 1, high)\n    end\nend\n\nlocal numbers = {64, 34, 25, 12, 22, 11, 90}\nquicksort(numbers, 1, #numbers)\n\nfor i, v in ipairs(numbers) do\n    print(v)\nend",
+    "language": "Lua",
+    "distractors": ["Ruby", "Python", "JavaScript"]
   },
   {
-    "code": "class Observable<T> {\n    private observers: ((value: T) => void)[] = []\n    \n    subscribe(observer: (value: T) => void): () => void {\n        this.observers.push(observer)\n        return () => {\n            const index = this.observers.indexOf(observer)\n            if (index > -1) this.observers.splice(index, 1)\n        }\n    }\n    \n    emit(value: T): void {\n        this.observers.forEach(observer => observer(value))\n    }\n    \n    map<U>(fn: (value: T) => U): Observable<U> {\n        const mapped = new Observable<U>()\n        this.subscribe(value => mapped.emit(fn(value)))\n        return mapped\n    }\n}",
-    "language": "TypeScript",
-    "distractors": ["JavaScript", "RxJS", "Java"]
+    "code": "class Calculator {\n  int _result = 0;\n  \n  Calculator add(int value) {\n    _result += value;\n    return this;\n  }\n  \n  Calculator multiply(int value) {\n    _result *= value;\n    return this;\n  }\n  \n  int get result => _result;\n  \n  void reset() => _result = 0;\n}",
+    "language": "Dart",
+    "distractors": ["JavaScript", "TypeScript", "Java"]
   },
   {
-    "code": "defmodule TaskSupervisor do\n  use DynamicSupervisor\n\n  def start_link(init_arg) do\n    DynamicSupervisor.start_link(__MODULE__, init_arg, name: __MODULE__)\n  end\n\n  def init(_init_arg) do\n    DynamicSupervisor.init(strategy: :one_for_one)\n  end\n\n  def start_task(fun) do\n    spec = %{\n      id: Task,\n      start: {Task, :start_link, [fun]},\n      restart: :temporary\n    }\n    DynamicSupervisor.start_child(__MODULE__, spec)\n  end\nend",
+    "code": "A = [1, 2, 3; 4, 5, 6; 7, 8, 9];\nB = A';\neigenvalues = eig(A);\n[U, S, V] = svd(A);\n\nfunction result = fibonacci_matrix(n)\n    if n <= 1\n        result = n;\n    else\n        F = [1, 1; 1, 0];\n        result = F^(n-1);\n        result = result(1,1);\n    end\nend",
+    "language": "MATLAB",
+    "distractors": ["Octave", "R", "Julia"]
+  },
+  {
+    "code": "$ErrorActionPreference = \"Stop\"\n\n$services = Get-Service | Where-Object {$_.Status -eq \"Running\"}\n\nforeach ($service in $services) {\n    Write-Host \"Service: $($service.Name) - Status: $($service.Status)\"\n}\n\n$processes = Get-Process | Sort-Object CPU -Descending | Select-Object -First 5\n$processes | Format-Table Name, CPU, WorkingSet",
+    "language": "PowerShell",
+    "distractors": ["Bash", "CMD", "Python"]
+  },
+  {
+    "code": "defmodule BankAccount do\n  defstruct balance: 0, account_number: nil\n  \n  def new(account_number) do\n    %BankAccount{account_number: account_number}\n  end\n  \n  def deposit(%BankAccount{balance: balance} = account, amount) when amount > 0 do\n    %{account | balance: balance + amount}\n  end\n  \n  def withdraw(%BankAccount{balance: balance} = account, amount) \n      when amount > 0 and amount <= balance do\n    %{account | balance: balance - amount}\n  end\nend",
     "language": "Elixir",
     "distractors": ["Erlang", "Ruby", "Crystal"]
   },
   {
-    "code": "import { atom, selector, useRecoilState, useRecoilValue } from 'recoil'\n\nconst textState = atom({\n  key: 'textState',\n  default: ''\n})\n\nconst charCountState = selector({\n  key: 'charCountState',\n  get: ({get}) => {\n    const text = get(textState)\n    return text.length\n  }\n})\n\nfunction TextInput() {\n  const [text, setText] = useRecoilState(textState)\n  const count = useRecoilValue(charCountState)\n  \n  return (\n    <div>\n      <input value={text} onChange={(e) => setText(e.target.value)} />\n      <p>Character count: {count}</p>\n    </div>\n  )\n}",
-    "language": "React (JSX)",
-    "distractors": ["TypeScript", "JavaScript", "Vue.js"]
+    "code": "(defn fibonacci [n]\n  (loop [a 0 b 1 count n]\n    (if (zero? count)\n      a\n      (recur b (+ a b) (dec count)))))\n\n(defn factorial [n]\n  (reduce * (range 1 (inc n))))\n\n(def numbers (range 1 11))\n(def squared (map #(* % %) numbers))\n(println \"Squared numbers:\" squared)",
+    "language": "Clojure",
+    "distractors": ["Lisp", "Scheme", "Racket"]
   },
   {
-    "code": "import pandas as pd\nimport numpy as np\nfrom sklearn.preprocessing import StandardScaler\nfrom sklearn.decomposition import PCA\n\ndef perform_pca(df, n_components=2):\n    # Standardize the data\n    scaler = StandardScaler()\n    scaled_data = scaler.fit_transform(df.select_dtypes(include=[np.number]))\n    \n    # Apply PCA\n    pca = PCA(n_components=n_components)\n    transformed_data = pca.fit_transform(scaled_data)\n    \n    # Create new DataFrame\n    columns = [f'PC{i+1}' for i in range(n_components)]\n    return pd.DataFrame(transformed_data, columns=columns, index=df.index)",
+    "code": "open System\n\nlet rec factorial n =\n    match n with\n    | 0 | 1 -> 1\n    | _ -> n * factorial (n - 1)\n\nlet fibonacci n =\n    let rec fib a b count =\n        if count = 0 then a\n        else fib b (a + b) (count - 1)\n    fib 0 1 n\n\nlet numbers = [1..10]\nlet squared = numbers |> List.map (fun x -> x * x)",
+    "language": "F#",
+    "distractors": ["OCaml", "Haskell", "C#"]
+  },
+  {
+    "code": "Module Calculator\n    Function Add(ByVal a As Integer, ByVal b As Integer) As Integer\n        Return a + b\n    End Function\n    \n    Function Multiply(ByVal a As Integer, ByVal b As Integer) As Integer\n        Return a * b\n    End Function\n    \n    Sub Main()\n        Dim result As Integer = Add(5, 3)\n        Console.WriteLine($\"Result: {result}\")\n    End Sub\nEnd Module",
+    "language": "VB.NET",
+    "distractors": ["C#", "Visual Basic 6", "F#"]
+  },
+  {
+    "code": "CREATE PROCEDURE GetTopCustomers\n    @MinOrderCount INT = 5\nAS\nBEGIN\n    SELECT \n        c.CustomerID,\n        c.CustomerName,\n        COUNT(o.OrderID) as OrderCount,\n        SUM(od.Quantity * od.UnitPrice) as TotalSpent\n    FROM Customers c\n    INNER JOIN Orders o ON c.CustomerID = o.CustomerID\n    INNER JOIN OrderDetails od ON o.OrderID = od.OrderID\n    GROUP BY c.CustomerID, c.CustomerName\n    HAVING COUNT(o.OrderID) >= @MinOrderCount\n    ORDER BY TotalSpent DESC\nEND",
+    "language": "T-SQL",
+    "distractors": ["SQL", "PL/SQL", "MySQL"]
+  },
+  {
+    "code": "FOR i IN 1..10 LOOP\n    IF MOD(i, 2) = 0 THEN\n        DBMS_OUTPUT.PUT_LINE('Even number: ' || i);\n    ELSE\n        DBMS_OUTPUT.PUT_LINE('Odd number: ' || i);\n    END IF;\nEND LOOP;\n\nDECLARE\n    CURSOR emp_cursor IS\n        SELECT employee_id, first_name, salary\n        FROM employees\n        WHERE salary > 50000;\nBEGIN\n    FOR emp_rec IN emp_cursor LOOP\n        DBMS_OUTPUT.PUT_LINE(emp_rec.first_name || ': ' || emp_rec.salary);\n    END LOOP;\nEND;",
+    "language": "PL/SQL",
+    "distractors": ["T-SQL", "Oracle", "SQL"]
+  },
+  {
+    "code": "namespace App\\Models;\n\nuse Illuminate\\Database\\Eloquent\\Model;\nuse Illuminate\\Database\\Eloquent\\Relations\\HasMany;\n\nclass User extends Model\n{\n    protected $fillable = ['name', 'email', 'password'];\n    protected $hidden = ['password', 'remember_token'];\n    \n    public function posts(): HasMany\n    {\n        return $this->hasMany(Post::class);\n    }\n    \n    public function getFullNameAttribute(): string\n    {\n        return $this->first_name . ' ' . $this->last_name;\n    }\n}",
+    "language": "PHP",
+    "distractors": ["JavaScript", "Python", "C#"]
+  },
+  {
+    "code": "type User struct {\n    ID       int64     `json:\"id\" db:\"id\"`\n    Name     string    `json:\"name\" db:\"name\"`\n    Email    string    `json:\"email\" db:\"email\"`\n    Created  time.Time `json:\"created_at\" db:\"created_at\"`\n}\n\nfunc (u *User) Validate() error {\n    if u.Name == \"\" {\n        return errors.New(\"name is required\")\n    }\n    if !strings.Contains(u.Email, \"@\") {\n        return errors.New(\"invalid email format\")\n    }\n    return nil\n}",
+    "language": "Go",
+    "distractors": ["Rust", "C", "Zig"]
+  },
+  {
+    "code": "const sum = arr.reduce((acc, val) => acc + val, 0);\nconst average = sum / arr.length;\n\nconst users = [\n  { name: 'Alice', age: 25 },\n  { name: 'Bob', age: 30 },\n  { name: 'Charlie', age: 35 }\n];\n\nconst adults = users\n  .filter(user => user.age >= 18)\n  .map(user => ({ ...user, isAdult: true }));",
+    "language": "JavaScript",
+    "distractors": ["TypeScript", "Node.js", "Dart"]
+  },
+  {
+    "code": "data = [10, 20, 30, 40, 50]\nfiltered = [x for x in data if x > 25]\ndict_comp = {i: i**2 for i in range(5)}\n\nclass Calculator:\n    def __init__(self):\n        self.history = []\n    \n    def add(self, a, b):\n        result = a + b\n        self.history.append(f\"{a} + {b} = {result}\")\n        return result",
     "language": "Python",
-    "distractors": ["R", "MATLAB", "Julia"]
+    "distractors": ["Ruby", "JavaScript", "Perl"]
   },
   {
-    "code": "public record Person(String name, int age, String email) {\n    public Person {\n        if (age < 0) {\n            throw new IllegalArgumentException(\"Age cannot be negative\");\n        }\n        if (email == null || !email.contains(\"@\")) {\n            throw new IllegalArgumentException(\"Invalid email\");\n        }\n    }\n    \n    public boolean isAdult() {\n        return age >= 18;\n    }\n    \n    public Person withAge(int newAge) {\n        return new Person(name, newAge, email);\n    }\n}",
+    "code": "use std::collections::HashMap;\nuse serde::{Deserialize, Serialize};\n\n#[derive(Debug, Serialize, Deserialize)]\nstruct User {\n    id: u64,\n    name: String,\n    email: String,\n}\n\nimpl User {\n    fn new(id: u64, name: String, email: String) -> Result<Self, String> {\n        if email.contains('@') {\n            Ok(User { id, name, email })\n        } else {\n            Err(\"Invalid email format\".to_string())\n        }\n    }\n}",
+    "language": "Rust",
+    "distractors": ["Go", "C++", "Swift"]
+  },
+  {
+    "code": "public record Product(int Id, string Name, decimal Price)\n{\n    public decimal CalculateDiscount(decimal percentage) =>\n        Price * (percentage / 100);\n}\n\npublic class ProductService\n{\n    private readonly List<Product> _products = new();\n    \n    public async Task<Product?> GetByIdAsync(int id)\n    {\n        await Task.Delay(10); // Simulate async operation\n        return _products.FirstOrDefault(p => p.Id == id);\n    }\n}",
     "language": "Java",
     "distractors": ["C#", "Kotlin", "Scala"]
   },
   {
-    "code": "use std::collections::HashMap;\nuse std::hash::Hash;\n\nstruct LRUCache<K, V> {\n    capacity: usize,\n    map: HashMap<K, V>,\n    order: std::collections::VecDeque<K>,\n}\n\nimpl<K: Clone + Hash + Eq, V> LRUCache<K, V> {\n    fn new(capacity: usize) -> Self {\n        Self {\n            capacity,\n            map: HashMap::new(),\n            order: std::collections::VecDeque::new(),\n        }\n    }\n    \n    fn get(&mut self, key: &K) -> Option<&V> {\n        if self.map.contains_key(key) {\n            self.move_to_front(key);\n            self.map.get(key)\n        } else {\n            None\n        }\n    }\n}",
-    "language": "Rust",
-    "distractors": ["C++", "Go", "Zig"]
+    "code": "$colors: (\n  primary: #3498db,\n  secondary: #2ecc71,\n  danger: #e74c3c\n);\n\n@mixin button-style($color) {\n  background-color: map-get($colors, $color);\n  border: none;\n  padding: 0.75rem 1.5rem;\n  border-radius: 0.25rem;\n  cursor: pointer;\n  \n  &:hover {\n    opacity: 0.8;\n  }\n}",
+    "language": "SCSS",
+    "distractors": ["CSS", "Sass", "Less"]
   },
   {
-    "code": "version: '3.8'\nservices:\n  web:\n    build: .\n    ports:\n      - \"3000:3000\"\n    environment:\n      - NODE_ENV=production\n      - DATABASE_URL=postgres://user:pass@db:5432/myapp\n    depends_on:\n      - db\n      - redis\n    volumes:\n      - ./uploads:/app/uploads\n  \n  db:\n    image: postgres:13\n    environment:\n      POSTGRES_DB: myapp\n      POSTGRES_USER: user\n      POSTGRES_PASSWORD: pass\n    volumes:\n      - postgres_data:/var/lib/postgresql/data\n  \n  redis:\n    image: redis:alpine\n    \nvolumes:\n  postgres_data:",
-    "language": "Docker Compose",
-    "distractors": ["YAML", "Kubernetes", "Docker"]
+    "code": "version: '3.8'\nservices:\n  app:\n    build:\n      context: .\n      dockerfile: Dockerfile\n    ports:\n      - \"3000:3000\"\n    environment:\n      NODE_ENV: production\n      DB_HOST: database\n    depends_on:\n      - database\n      - redis\n    volumes:\n      - ./logs:/app/logs\n  \n  database:\n    image: postgres:14\n    environment:\n      POSTGRES_DB: myapp\n      POSTGRES_USER: user\n      POSTGRES_PASSWORD: password\n    volumes:\n      - postgres_data:/var/lib/postgresql/data\n\nvolumes:\n  postgres_data:",
+    "language": "YAML",
+    "distractors": ["Docker Compose", "JSON", "TOML"]
   },
   {
-    "code": "import { z } from 'zod'\nimport { createTRPCNext } from '@trpc/next'\n\nconst userSchema = z.object({\n  id: z.string(),\n  name: z.string(),\n  email: z.string().email(),\n})\n\nexport const { useQuery, useMutation } = createTRPCNext<AppRouter>({\n  config({ ctx }) {\n    return {\n      transformer: superjson,\n      links: [\n        httpBatchLink({\n          url: '/api/trpc',\n          headers() {\n            return {\n              authorization: getAuthCookie(),\n            }\n          },\n        }),\n      ],\n    }\n  },\n  ssr: false,\n})",
+    "code": "pragma solidity ^0.8.0;\n\ncontract SimpleStorage {\n    uint256 private storedData;\n    address public owner;\n    \n    event DataStored(uint256 indexed value, address indexed sender);\n    \n    modifier onlyOwner() {\n        require(msg.sender == owner, \"Not the contract owner\");\n        _;\n    }\n    \n    constructor() {\n        owner = msg.sender;\n    }\n    \n    function set(uint256 value) public onlyOwner {\n        storedData = value;\n        emit DataStored(value, msg.sender);\n    }\n}",
+    "language": "Solidity",
+    "distractors": ["JavaScript", "Vyper", "Move"]
+  },
+  {
+    "code": "(define (factorial n)\n  (if (<= n 1)\n      1\n      (* n (factorial (- n 1)))))\n\n(define (fibonacci n)\n  (cond ((<= n 0) 0)\n        ((= n 1) 1)\n        (else (+ (fibonacci (- n 1))\n                 (fibonacci (- n 2))))))\n\n(map (lambda (x) (* x x)) '(1 2 3 4 5))",
+    "language": "Scheme",
+    "distractors": ["Lisp", "Clojure", "Racket"]
+  },
+  {
+    "code": "program BinarySearch;\ntype\n  TIntArray = array of Integer;\n\nfunction BinarySearchFunc(const Arr: TIntArray; Target: Integer): Integer;\nvar\n  Left, Right, Mid: Integer;\nbegin\n  Left := 0;\n  Right := Length(Arr) - 1;\n  Result := -1;\n  \n  while Left <= Right do\n  begin\n    Mid := (Left + Right) div 2;\n    if Arr[Mid] = Target then\n      Exit(Mid)\n    else if Arr[Mid] < Target then\n      Left := Mid + 1\n    else\n      Right := Mid - 1;\n  end;\nend;",
+    "language": "Pascal",
+    "distractors": ["Ada", "Fortran", "Delphi"]
+  },
+  {
+    "code": "interface UserRepository {\n  readonly users: User[];\n  findById(id: string): Promise<User | null>;\n  create(userData: CreateUserRequest): Promise<User>;\n  update(id: string, userData: Partial<User>): Promise<User>;\n  delete(id: string): Promise<boolean>;\n}\n\nclass DatabaseUserRepository implements UserRepository {\n  constructor(private db: Database) {}\n  \n  async findById(id: string): Promise<User | null> {\n    const result = await this.db.query('SELECT * FROM users WHERE id = ?', [id]);\n    return result.rows[0] || null;\n  }\n}",
     "language": "TypeScript",
-    "distractors": ["JavaScript", "Next.js", "React"]
+    "distractors": ["JavaScript", "Java", "C#"]
   },
   {
-    "code": "import SwiftUI\n\nstruct ContentView: View {\n    @StateObject private var viewModel = WeatherViewModel()\n    \n    var body: some View {\n        NavigationView {\n            List(viewModel.forecasts) { forecast in\n                WeatherRow(forecast: forecast)\n                    .onAppear {\n                        if forecast == viewModel.forecasts.last {\n                            Task {\n                                await viewModel.loadMoreForecasts()\n                            }\n                        }\n                    }\n            }\n            .refreshable {\n                await viewModel.refresh()\n            }\n            .navigationTitle(\"Weather\")\n        }\n    }\n}",
-    "language": "SwiftUI",
-    "distractors": ["Swift", "Kotlin Compose", "Flutter"]
+    "code": "numbers = (1..100).to_a\neven_squares = numbers\n  .select(&:even?)\n  .map { |n| n ** 2 }\n  .select { |n| n > 100 }\n\nclass Person\n  attr_reader :name, :age\n  \n  def initialize(name, age)\n    @name, @age = name, age\n  end\n  \n  def adult?\n    age >= 18\n  end\nend",
+    "language": "Ruby",
+    "distractors": ["Python", "Crystal", "Perl"]
+  },
+  {
+    "code": "matrix_a = [[1, 2], [3, 4]]\nmatrix_b = [[5, 6], [7, 8]]\n\ndef matrix_multiply(a, b)\n  result = Array.new(a.length) { Array.new(b[0].length, 0) }\n  \n  (0...a.length).each do |i|\n    (0...b[0].length).each do |j|\n      (0...b.length).each do |k|\n        result[i][j] += a[i][k] * b[k][j]\n      end\n    end\n  end\n  \n  result\nend",
+    "language": "Ruby",
+    "distractors": ["Python", "JavaScript", "Crystal"]
+  },
+  {
+    "code": "import asyncio\nimport aiohttp\nfrom typing import List, Dict, Any\n\nclass AsyncAPIClient:\n    def __init__(self, base_url: str):\n        self.base_url = base_url\n    \n    async def fetch_multiple(self, endpoints: List[str]) -> List[Dict[Any, Any]]:\n        async with aiohttp.ClientSession() as session:\n            tasks = [self._fetch_one(session, endpoint) for endpoint in endpoints]\n            results = await asyncio.gather(*tasks, return_exceptions=True)\n            return [r for r in results if not isinstance(r, Exception)]\n    \n    async def _fetch_one(self, session: aiohttp.ClientSession, endpoint: str):\n        async with session.get(f\"{self.base_url}/{endpoint}\") as response:\n            return await response.json()",
+    "language": "Python",
+    "distractors": ["JavaScript", "TypeScript", "C#"]
   }
 ]
