@@ -325,18 +325,38 @@ document.addEventListener("DOMContentLoaded", () => {
 
   // Leaderboard functionality
   async function loadLeaderboard(mode = 'classic') {
+    console.log('Loading leaderboard for mode:', mode);
+    
     try {
-      const response = await fetch(`${API_BASE_URL}/leaderboard?mode=${mode}&limit=5`);
+      const url = `${API_BASE_URL}/leaderboard?mode=${mode}&limit=5`;
+      console.log('Fetching leaderboard from:', url);
+      
+      const response = await fetch(url, {
+        method: 'GET',
+        headers: {
+          'Accept': 'application/json',
+          'Content-Type': 'application/json',
+        },
+        mode: 'cors',
+        credentials: 'omit'
+      });
+      
+      console.log('Leaderboard response status:', response.status);
+      console.log('Leaderboard response headers:', response.headers);
+      
       if (!response.ok) {
-        throw new Error('Failed to load leaderboard');
+        const errorText = await response.text();
+        console.error('Leaderboard error response:', errorText);
+        throw new Error(`Failed to load leaderboard: ${response.status} - ${errorText}`);
       }
       
       const leaderboard = await response.json();
+      console.log('Leaderboard data received:', leaderboard);
       displayLeaderboard(leaderboard);
     } catch (error) {
       console.error('Error loading leaderboard:', error);
       document.getElementById('leaderboard-list').innerHTML = 
-        '<div class="leaderboard-error">Unable to load scores</div>';
+        `<div class="leaderboard-error">Unable to load scores<br><small>${error.message}</small></div>`;
     }
   }
 

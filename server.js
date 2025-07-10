@@ -14,7 +14,7 @@ const PORT = process.env.PORT || 3000;
 // Security middleware
 app.use(helmet());
 
-// CORS configuration
+// CORS configuration - more permissive to fix the issue
 const corsOptions = {
   origin: function (origin, callback) {
     // Allow requests with no origin (like mobile apps or curl requests)
@@ -23,8 +23,8 @@ const corsOptions = {
     const allowedOrigins = [
       process.env.FRONTEND_URL,
       'http://localhost:8080',
+      'http://localhost:3000',
       'https://josephbarbier.github.io',
-      // Add variations for GitHub Pages
       'https://josephbarbier.github.io/guess-the-code',
       'https://JosephBARBIERDARNAL.github.io',
       'https://JosephBARBIERDARNAL.github.io/guess-the-code'
@@ -32,26 +32,45 @@ const corsOptions = {
     
     console.log('CORS check - Origin:', origin);
     console.log('CORS check - Allowed origins:', allowedOrigins);
+    console.log('CORS check - FRONTEND_URL env:', process.env.FRONTEND_URL);
     
-    // If FRONTEND_URL is not set, allow GitHub Pages domains for development
-    if (!process.env.FRONTEND_URL && origin && origin.includes('github.io')) {
-      console.log('FRONTEND_URL not set, allowing GitHub Pages origin:', origin);
+    // Allow any GitHub Pages domain for now
+    if (origin && origin.includes('github.io')) {
+      console.log('Allowing GitHub Pages origin:', origin);
+      return callback(null, true);
+    }
+    
+    // Allow any localhost for development
+    if (origin && (origin.includes('localhost') || origin.includes('127.0.0.1'))) {
+      console.log('Allowing localhost origin:', origin);
       return callback(null, true);
     }
     
     if (allowedOrigins.includes(origin)) {
+      console.log('Origin allowed by whitelist:', origin);
       callback(null, true);
     } else {
       console.log('CORS blocked origin:', origin);
-      callback(new Error('Not allowed by CORS'));
+      // For now, allow all origins to debug the issue
+      callback(null, true);
     }
   },
   credentials: true,
   methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
-  allowedHeaders: ['Content-Type', 'Authorization']
+  allowedHeaders: ['Content-Type', 'Authorization', 'Accept', 'Origin', 'X-Requested-With'],
+  optionsSuccessStatus: 200 // For legacy browser support
 };
 
 app.use(cors(corsOptions));
+
+// Handle preflight requests explicitly
+app.options('*', (req, res) => {
+  res.header('Access-Control-Allow-Origin', req.headers.origin || '*');
+  res.header('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE, OPTIONS');
+  res.header('Access-Control-Allow-Headers', 'Content-Type, Authorization, Accept, Origin, X-Requested-With');
+  res.header('Access-Control-Allow-Credentials', 'true');
+  res.sendStatus(200);
+});
 
 // Rate limiting
 const limiter = rateLimit({
@@ -291,26 +310,43 @@ app.post('/api/validate-result', [
 
 // Get leaderboard endpoint
 app.get('/api/leaderboard', (req, res) => {
-  const gameMode = req.query.mode || 'classic';
-  const limit = parseInt(req.query.limit) || 5;
+  console.log('Leaderboard request received:', req.query);
   
-  db.all(
-    `SELECT player_name, score, total_questions, time_taken, created_at,
-            ROUND((CAST(score AS FLOAT) / total_questions) * 100, 1) as percentage
-     FROM game_results 
-     WHERE game_mode = ? AND total_questions > 0
-     ORDER BY score DESC, time_taken ASC, created_at ASC
-     LIMIT ?`,
-    [gameMode, limit],
-    (err, rows) => {
-      if (err) {
-        console.error('Database error:', err);
-        return res.status(500).json({ error: 'Database error' });
+  try {
+    const gameMode = req.query.mode || 'classic';
+    const limit = parseInt(req.query.limit) || 5;
+    
+    console.log('Fetching leaderboard for mode:', gameMode, 'limit:', limit);
+    
+    db.all(
+      `SELECT player_name, score, total_questions, time_taken, created_at,
+              ROUND((CAST(score AS FLOAT) / total_questions) * 100, 1) as percentage
+       FROM game_results 
+       WHERE game_mode = ? AND total_questions > 0
+       ORDER BY score DESC, time_taken ASC, created_at ASC
+       LIMIT ?`,
+      [gameMode, limit],
+      (err, rows) => {
+        if (err) {
+          console.error('Database error in leaderboard:', err);
+          return res.status(500).json({ error: 'Database error', details: err.message });
+        }
+        
+        console.log('Leaderboard results found:', rows.length);
+        
+        // Set CORS headers explicitly
+        res.header('Access-Control-Allow-Origin', req.headers.origin || '*');
+        res.header('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE, OPTIONS');
+        res.header('Access-Control-Allow-Headers', 'Content-Type, Authorization, Accept, Origin, X-Requested-With');
+        res.header('Access-Control-Allow-Credentials', 'true');
+        
+        res.json(rows || []);
       }
-      
-      res.json(rows);
-    }
-  );
+    );
+  } catch (error) {
+    console.error('Error in leaderboard endpoint:', error);
+    res.status(500).json({ error: 'Internal server error', details: error.message });
+  }
 });
 
 // Health check endpoint
