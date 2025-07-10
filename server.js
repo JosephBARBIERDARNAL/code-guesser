@@ -23,11 +23,21 @@ const corsOptions = {
     const allowedOrigins = [
       process.env.FRONTEND_URL,
       'http://localhost:8080',
-      'https://josephbarbier.github.io'
+      'https://josephbarbier.github.io',
+      // Add variations for GitHub Pages
+      'https://josephbarbier.github.io/guess-the-code',
+      'https://JosephBARBIERDARNAL.github.io',
+      'https://JosephBARBIERDARNAL.github.io/guess-the-code'
     ].filter(Boolean);
     
     console.log('CORS check - Origin:', origin);
     console.log('CORS check - Allowed origins:', allowedOrigins);
+    
+    // If FRONTEND_URL is not set, allow GitHub Pages domains for development
+    if (!process.env.FRONTEND_URL && origin && origin.includes('github.io')) {
+      console.log('FRONTEND_URL not set, allowing GitHub Pages origin:', origin);
+      return callback(null, true);
+    }
     
     if (allowedOrigins.includes(origin)) {
       callback(null, true);
