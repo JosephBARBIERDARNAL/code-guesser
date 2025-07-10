@@ -271,14 +271,16 @@ app.post('/api/validate-result', [
 // Get leaderboard endpoint
 app.get('/api/leaderboard', (req, res) => {
   const gameMode = req.query.mode || 'classic';
+  const limit = parseInt(req.query.limit) || 5;
   
   db.all(
-    `SELECT player_name, score, total_questions, time_taken, created_at
+    `SELECT player_name, score, total_questions, time_taken, created_at,
+            ROUND((CAST(score AS FLOAT) / total_questions) * 100, 1) as percentage
      FROM game_results 
-     WHERE game_mode = ?
-     ORDER BY score DESC, time_taken ASC
-     LIMIT 100`,
-    [gameMode],
+     WHERE game_mode = ? AND total_questions > 0
+     ORDER BY score DESC, time_taken ASC, created_at ASC
+     LIMIT ?`,
+    [gameMode, limit],
     (err, rows) => {
       if (err) {
         console.error('Database error:', err);

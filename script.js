@@ -32,6 +32,7 @@ document.addEventListener("DOMContentLoaded", () => {
   let languagesSet = new Set();
   let currentSessionId = null;
   let gameAnswers = [];
+  let currentLeaderboardMode = 'classic';
 
   classicModeButton = document.getElementById("classic-mode-button");
   infiniteModeButton = document.getElementById("infinite-mode-button");
@@ -322,6 +323,53 @@ document.addEventListener("DOMContentLoaded", () => {
     }
   }
 
+  // Leaderboard functionality
+  async function loadLeaderboard(mode = 'classic') {
+    try {
+      const response = await fetch(`${API_BASE_URL}/leaderboard?mode=${mode}&limit=5`);
+      if (!response.ok) {
+        throw new Error('Failed to load leaderboard');
+      }
+      
+      const leaderboard = await response.json();
+      displayLeaderboard(leaderboard);
+    } catch (error) {
+      console.error('Error loading leaderboard:', error);
+      document.getElementById('leaderboard-list').innerHTML = 
+        '<div class="leaderboard-error">Unable to load scores</div>';
+    }
+  }
+
+  function displayLeaderboard(scores) {
+    const container = document.getElementById('leaderboard-list');
+    
+    if (scores.length === 0) {
+      container.innerHTML = '<div class="no-scores">No scores yet!</div>';
+      return;
+    }
+    
+    const html = scores.map((score, index) => `
+      <div class="leaderboard-entry">
+        <div class="rank">${index + 1}</div>
+        <div class="player-info">
+          <div class="player-name">${escapeHtml(score.player_name)}</div>
+          <div class="player-stats">
+            <span class="score">${score.score}/${score.total_questions}</span>
+            <span class="time">${score.time_taken}s</span>
+          </div>
+        </div>
+      </div>
+    `).join('');
+    
+    container.innerHTML = html;
+  }
+
+  function escapeHtml(text) {
+    const div = document.createElement('div');
+    div.textContent = text;
+    return div.innerHTML;
+  }
+
   // Save result functionality
   async function saveResult() {
     const playerName = document.getElementById("player-name").value.trim();
@@ -368,6 +416,9 @@ document.addEventListener("DOMContentLoaded", () => {
       const result = await response.json();
       saveStatus.textContent = `Result saved! Score: ${result.validatedScore}/${result.validatedTotal}`;
       saveStatus.className = "success";
+      
+      // Refresh leaderboard after saving
+      setTimeout(() => loadLeaderboard(currentLeaderboardMode), 1000);
     } catch (error) {
       console.error("Error saving result:", error);
       saveStatus.textContent = "Failed to save result";
@@ -380,6 +431,21 @@ document.addEventListener("DOMContentLoaded", () => {
   infiniteModeButton.addEventListener("click", () => startGame(INFINITE_MODE));
 
   document.getElementById("save-button").addEventListener("click", saveResult);
+
+  // Leaderboard mode toggle
+  document.getElementById("lb-classic").addEventListener("click", () => {
+    currentLeaderboardMode = 'classic';
+    document.querySelectorAll('.lb-mode-btn').forEach(btn => btn.classList.remove('active'));
+    document.getElementById("lb-classic").classList.add('active');
+    loadLeaderboard('classic');
+  });
+
+  document.getElementById("lb-infinite").addEventListener("click", () => {
+    currentLeaderboardMode = 'infinite';
+    document.querySelectorAll('.lb-mode-btn').forEach(btn => btn.classList.remove('active'));
+    document.getElementById("lb-infinite").classList.add('active');
+    loadLeaderboard('infinite');
+  });
 
   replayButton.addEventListener("click", () => {
     resultsScreen.classList.add("hidden");
@@ -408,4 +474,5 @@ document.addEventListener("DOMContentLoaded", () => {
   });
 
   loadSnippets();
+  loadLeaderboard('classic'); // Load initial leaderboard
 });
