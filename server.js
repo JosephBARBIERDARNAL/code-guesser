@@ -13,10 +13,35 @@ const PORT = process.env.PORT || 3000;
 
 // Security middleware
 app.use(helmet());
-app.use(cors({
-  origin: process.env.FRONTEND_URL || 'http://localhost:8080',
-  credentials: true
-}));
+
+// CORS configuration
+const corsOptions = {
+  origin: function (origin, callback) {
+    // Allow requests with no origin (like mobile apps or curl requests)
+    if (!origin) return callback(null, true);
+    
+    const allowedOrigins = [
+      process.env.FRONTEND_URL,
+      'http://localhost:8080',
+      'https://josephbarbier.github.io'
+    ].filter(Boolean);
+    
+    console.log('CORS check - Origin:', origin);
+    console.log('CORS check - Allowed origins:', allowedOrigins);
+    
+    if (allowedOrigins.includes(origin)) {
+      callback(null, true);
+    } else {
+      console.log('CORS blocked origin:', origin);
+      callback(new Error('Not allowed by CORS'));
+    }
+  },
+  credentials: true,
+  methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
+  allowedHeaders: ['Content-Type', 'Authorization']
+};
+
+app.use(cors(corsOptions));
 
 // Rate limiting
 const limiter = rateLimit({
@@ -58,8 +83,21 @@ db.serialize(() => {
 let snippetsData = [];
 try {
   const snippetsPath = path.join(__dirname, 'snippets.json');
+  console.log('Looking for snippets at:', snippetsPath);
+  console.log('File exists:', fs.existsSync(snippetsPath));
+  
   if (fs.existsSync(snippetsPath)) {
-    snippetsData = JSON.parse(fs.readFileSync(snippetsPath, 'utf8'));
+    const fileContent = fs.readFileSync(snippetsPath, 'utf8');
+    snippetsData = JSON.parse(fileContent);
+    console.log('Loaded snippets:', snippetsData.length);
+  } else {
+    console.warn('snippets.json not found at:', snippetsPath);
+    // Create a fallback snippet for testing
+    snippetsData = [{
+      "language": "JavaScript",
+      "code": "console.log('Hello, World!');",
+      "distractors": ["Python", "Java", "C++"]
+    }];
   }
 } catch (error) {
   console.error('Error loading snippets:', error);
@@ -85,19 +123,31 @@ app.post('/api/start-session', [
   body('gameMode').isIn(['classic', 'infinite']),
   body('snippetsCount').optional().isInt({ min: 1, max: 50 })
 ], (req, res) => {
+  console.log('Start session request received:', req.body);
+  
   const errors = validationResult(req);
   if (!errors.isEmpty()) {
+    console.log('Validation errors:', errors.array());
     return res.status(400).json({ errors: errors.array() });
+  }
+
+  if (!snippetsData || snippetsData.length === 0) {
+    console.error('No snippets data available');
+    return res.status(500).json({ error: 'No snippets data available' });
   }
 
   const { gameMode, snippetsCount = 10 } = req.body;
   const sessionId = generateSessionId();
+  
+  console.log('Creating session:', sessionId, 'for mode:', gameMode);
   
   // Select and shuffle snippets
   const shuffledSnippets = shuffleArray(snippetsData);
   const sessionSnippets = gameMode === 'classic' 
     ? shuffledSnippets.slice(0, Math.min(snippetsCount, shuffledSnippets.length))
     : shuffledSnippets;
+  
+  console.log('Session snippets count:', sessionSnippets.length);
   
   // Store session in database
   db.run(
@@ -109,6 +159,7 @@ app.post('/api/start-session', [
         return res.status(500).json({ error: 'Failed to create session' });
       }
       
+      console.log('Session created successfully:', sessionId);
       res.json({
         sessionId,
         snippets: sessionSnippets,
@@ -231,7 +282,22 @@ app.get('/api/leaderboard', (req, res) => {
 
 // Health check endpoint
 app.get('/health', (req, res) => {
-  res.json({ status: 'ok', timestamp: new Date().toISOString() });
+  res.json({ 
+    status: 'ok', 
+    timestamp: new Date().toISOString(),
+    snippetsLoaded: snippetsData.length,
+    environment: process.env.NODE_ENV || 'development'
+  });
+});
+
+// Debug endpoint to check snippets
+app.get('/api/debug', (req, res) => {
+  res.json({
+    snippetsCount: snippetsData.length,
+    sampleSnippet: snippetsData[0] || null,
+    environment: process.env.NODE_ENV || 'development',
+    frontendUrl: process.env.FRONTEND_URL || 'not set'
+  });
 });
 
 // Error handling middleware

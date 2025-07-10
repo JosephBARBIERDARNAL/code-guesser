@@ -109,6 +109,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
     try {
       // Start a new session with the backend
+      console.log("Starting game session with backend:", API_BASE_URL);
       const response = await fetch(`${API_BASE_URL}/start-session`, {
         method: "POST",
         headers: {
@@ -120,11 +121,17 @@ document.addEventListener("DOMContentLoaded", () => {
         }),
       });
 
+      console.log("Response status:", response.status);
+      console.log("Response headers:", response.headers);
+
       if (!response.ok) {
-        throw new Error("Failed to start game session");
+        const errorText = await response.text();
+        console.error("Backend error response:", errorText);
+        throw new Error(`Failed to start game session: ${response.status} ${errorText}`);
       }
 
       const sessionData = await response.json();
+      console.log("Session data received:", sessionData);
       currentSessionId = sessionData.sessionId;
       currentGameSnippets = sessionData.snippets;
 
@@ -133,8 +140,11 @@ document.addEventListener("DOMContentLoaded", () => {
       currentGameSnippets.forEach((snippet) =>
         languagesSet.add(snippet.language)
       );
+      
+      console.log("Game session started successfully:", currentSessionId);
     } catch (error) {
       console.error("Error starting game session:", error);
+      alert(`Backend connection failed: ${error.message}. Playing in offline mode.`);
       // Fallback to local mode if backend is unavailable
       currentSessionId = null;
       const shuffledAllSnippets = [...allSnippets];
