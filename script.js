@@ -16,7 +16,7 @@ document.addEventListener("DOMContentLoaded", () => {
   const CLASSIC_MODE = "classic";
   const INFINITE_MODE = "infinite";
   const SNIPPETS_PER_GAME = 10;
-  const API_BASE_URL = 'http://localhost:3000/api';
+  const API_BASE_URL = "https://your-railway-app.railway.app/api";
 
   let totalAttempts = 0;
   let gameMode = CLASSIC_MODE;
@@ -110,35 +110,36 @@ document.addEventListener("DOMContentLoaded", () => {
     try {
       // Start a new session with the backend
       const response = await fetch(`${API_BASE_URL}/start-session`, {
-        method: 'POST',
+        method: "POST",
         headers: {
-          'Content-Type': 'application/json',
+          "Content-Type": "application/json",
         },
         body: JSON.stringify({
           gameMode: mode,
-          snippetsCount: SNIPPETS_PER_GAME
-        })
+          snippetsCount: SNIPPETS_PER_GAME,
+        }),
       });
 
       if (!response.ok) {
-        throw new Error('Failed to start game session');
+        throw new Error("Failed to start game session");
       }
 
       const sessionData = await response.json();
       currentSessionId = sessionData.sessionId;
       currentGameSnippets = sessionData.snippets;
-      
+
       // Update languagesSet based on session snippets
       languagesSet.clear();
-      currentGameSnippets.forEach(snippet => languagesSet.add(snippet.language));
-
+      currentGameSnippets.forEach((snippet) =>
+        languagesSet.add(snippet.language)
+      );
     } catch (error) {
-      console.error('Error starting game session:', error);
+      console.error("Error starting game session:", error);
       // Fallback to local mode if backend is unavailable
       currentSessionId = null;
       const shuffledAllSnippets = [...allSnippets];
       shuffleArray(shuffledAllSnippets);
-      
+
       if (gameMode === CLASSIC_MODE) {
         currentGameSnippets = shuffledAllSnippets.slice(
           0,
@@ -234,13 +235,13 @@ document.addEventListener("DOMContentLoaded", () => {
     buttons.forEach((btn) => btn.classList.add("disabled"));
 
     totalAttempts++;
-    
+
     // Record the answer for backend validation
     gameAnswers.push({
       snippetIndex: currentSnippetIndex,
       selectedLanguage: selectedOption,
       correctLanguage: correctLanguage,
-      isCorrect: selectedOption === correctLanguage
+      isCorrect: selectedOption === correctLanguage,
     });
 
     if (selectedOption === correctLanguage) {
@@ -313,31 +314,31 @@ document.addEventListener("DOMContentLoaded", () => {
 
   // Save result functionality
   async function saveResult() {
-    const playerName = document.getElementById('player-name').value.trim();
-    const saveStatus = document.getElementById('save-status');
-    const saveButton = document.getElementById('save-button');
-    
+    const playerName = document.getElementById("player-name").value.trim();
+    const saveStatus = document.getElementById("save-status");
+    const saveButton = document.getElementById("save-button");
+
     if (!playerName) {
-      saveStatus.textContent = 'Please enter your name';
-      saveStatus.className = 'error';
+      saveStatus.textContent = "Please enter your name";
+      saveStatus.className = "error";
       return;
     }
-    
+
     if (!currentSessionId) {
-      saveStatus.textContent = 'Cannot save result - no active session';
-      saveStatus.className = 'error';
+      saveStatus.textContent = "Cannot save result - no active session";
+      saveStatus.className = "error";
       return;
     }
-    
+
     saveButton.disabled = true;
-    saveStatus.textContent = 'Saving...';
-    saveStatus.className = 'saving';
-    
+    saveStatus.textContent = "Saving...";
+    saveStatus.className = "saving";
+
     try {
       const response = await fetch(`${API_BASE_URL}/validate-result`, {
-        method: 'POST',
+        method: "POST",
         headers: {
-          'Content-Type': 'application/json',
+          "Content-Type": "application/json",
         },
         body: JSON.stringify({
           sessionId: currentSessionId,
@@ -346,31 +347,30 @@ document.addEventListener("DOMContentLoaded", () => {
           totalQuestions: totalAttempts,
           timeTaken: timeElapsed,
           gameMode: gameMode,
-          answers: gameAnswers
-        })
+          answers: gameAnswers,
+        }),
       });
-      
+
       if (!response.ok) {
-        throw new Error('Failed to save result');
+        throw new Error("Failed to save result");
       }
-      
+
       const result = await response.json();
       saveStatus.textContent = `Result saved! Score: ${result.validatedScore}/${result.validatedTotal}`;
-      saveStatus.className = 'success';
-      
+      saveStatus.className = "success";
     } catch (error) {
-      console.error('Error saving result:', error);
-      saveStatus.textContent = 'Failed to save result';
-      saveStatus.className = 'error';
+      console.error("Error saving result:", error);
+      saveStatus.textContent = "Failed to save result";
+      saveStatus.className = "error";
       saveButton.disabled = false;
     }
   }
 
   classicModeButton.addEventListener("click", () => startGame(CLASSIC_MODE));
   infiniteModeButton.addEventListener("click", () => startGame(INFINITE_MODE));
-  
-  document.getElementById('save-button').addEventListener('click', saveResult);
-  
+
+  document.getElementById("save-button").addEventListener("click", saveResult);
+
   replayButton.addEventListener("click", () => {
     resultsScreen.classList.add("hidden");
     startScreen.classList.remove("hidden");
