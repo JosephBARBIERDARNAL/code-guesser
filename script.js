@@ -16,7 +16,7 @@ document.addEventListener("DOMContentLoaded", () => {
   const CLASSIC_MODE = "classic";
   const INFINITE_MODE = "infinite";
   const SNIPPETS_PER_GAME = 10;
-  const API_BASE_URL = "https://your-railway-app.railway.app/api";
+  const API_BASE_URL = "https://code-guesser-production.up.railway.app/api";
 
   let totalAttempts = 0;
   let gameMode = CLASSIC_MODE;

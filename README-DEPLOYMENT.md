@@ -23,25 +23,28 @@ This guide will help you deploy your Code Guesser game with the secure backend t
    # No additional configuration needed
    ```
 4. **Set environment variables:**
+
    - `FRONTEND_URL`: Your frontend URL (e.g., `https://yourusername.github.io/guess-the-code`)
    - `PORT`: Will be set automatically by Railway
 
 5. **Update your frontend:**
    ```javascript
    // In script.js, replace:
-   const API_BASE_URL = 'http://localhost:3000/api';
+   const API_BASE_URL = "http://localhost:3000/api";
    // With:
-   const API_BASE_URL = 'https://your-railway-app.railway.app/api';
+   const API_BASE_URL = "https://code-guesser-production.up.railway.app/api";
    ```
 
 ### Option 2: Vercel (Serverless)
 
 1. **Install Vercel CLI:**
+
    ```bash
    npm install -g vercel
    ```
 
 2. **Deploy:**
+
    ```bash
    vercel --prod
    ```
@@ -52,6 +55,7 @@ This guide will help you deploy your Code Guesser game with the secure backend t
 ### Option 3: Netlify Functions
 
 1. **Create netlify/functions directory:**
+
    ```bash
    mkdir -p netlify/functions
    ```
@@ -85,8 +89,9 @@ This guide will help you deploy your Code Guesser game with the secure backend t
 ## Frontend Deployment (GitHub Pages)
 
 1. **Update API URL in script.js:**
+
    ```javascript
-   const API_BASE_URL = 'https://your-backend-domain.com/api';
+   const API_BASE_URL = "https://your-backend-domain.com/api";
    ```
 
 2. **Commit and push to GitHub**
@@ -134,6 +139,7 @@ The backend uses SQLite which creates a local `game_results.db` file. For produc
 ## Monitoring
 
 Consider adding monitoring tools:
+
 - **Railway**: Built-in monitoring dashboard
 - **Vercel**: Analytics dashboard
 - **Traditional VPS**: Consider using tools like PM2 monitoring or external services
