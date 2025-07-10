@@ -27,7 +27,7 @@ body {
   color: var(--on-surface);
   display: flex;
   justify-content: center;
-  align-items: flex-start;
+  align-items: center;
   min-height: 100vh;
   padding: 20px;
   overflow-x: hidden;

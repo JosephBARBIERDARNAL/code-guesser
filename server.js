@@ -184,17 +184,22 @@ app.post('/api/validate-result', [
   body('sessionId').isLength({ min: 64, max: 64 }),
   body('playerName').isLength({ min: 1, max: 50 }).escape(),
   body('score').isInt({ min: 0 }),
-  body('totalQuestions').isInt({ min: 1 }),
+  body('totalQuestions').isInt({ min: 0 }), // Allow 0 for infinite mode
   body('timeTaken').isFloat({ min: 0 }),
   body('gameMode').isIn(['classic', 'infinite']),
   body('answers').isArray()
 ], (req, res) => {
+  console.log('Validate result request:', req.body);
+  
   const errors = validationResult(req);
   if (!errors.isEmpty()) {
+    console.log('Validation errors:', errors.array());
     return res.status(400).json({ errors: errors.array() });
   }
 
   const { sessionId, playerName, score, totalQuestions, timeTaken, gameMode, answers } = req.body;
+  
+  console.log('Validating result for session:', sessionId);
   
   // Verify session exists
   db.get(
@@ -207,10 +212,14 @@ app.post('/api/validate-result', [
       }
       
       if (!session) {
+        console.log('Session not found or already completed:', sessionId);
         return res.status(400).json({ error: 'Invalid or expired session' });
       }
       
+      console.log('Session found:', session.game_mode);
       const sessionSnippets = JSON.parse(session.snippets);
+      console.log('Session snippets count:', sessionSnippets.length);
+      console.log('Answers received:', answers.length);
       
       // Validate answers against session snippets
       let validatedScore = 0;
@@ -220,6 +229,8 @@ app.post('/api/validate-result', [
         const answer = answers[i];
         const snippet = sessionSnippets[i];
         
+        console.log(`Validating answer ${i}:`, answer);
+        
         if (snippet && answer.snippetIndex === i) {
           validatedTotal++;
           if (answer.selectedLanguage === snippet.language) {
@@ -228,30 +239,40 @@ app.post('/api/validate-result', [
         }
       }
       
+      console.log('Validation results:', { validatedScore, validatedTotal });
+      
       // Additional validation checks
       if (gameMode === 'classic' && validatedTotal > sessionSnippets.length) {
+        console.log('Invalid answer count for classic mode');
         return res.status(400).json({ error: 'Invalid answer count' });
       }
       
       if (validatedScore > validatedTotal) {
+        console.log('Invalid score - score higher than total');
         return res.status(400).json({ error: 'Invalid score' });
       }
       
-      // Basic time validation (not too fast)
-      const minExpectedTime = validatedTotal * 2; // At least 2 seconds per question
-      if (timeTaken < minExpectedTime) {
-        return res.status(400).json({ error: 'Suspicious completion time' });
+      // Basic time validation (not too fast) - only for classic mode or if we have answers
+      if (validatedTotal > 0) {
+        const minExpectedTime = validatedTotal * 1; // At least 1 second per question
+        if (timeTaken < minExpectedTime) {
+          console.log('Suspicious completion time:', timeTaken, 'min expected:', minExpectedTime);
+          return res.status(400).json({ error: 'Suspicious completion time' });
+        }
       }
       
       // Save result
+      console.log('Saving result to database...');
       db.run(
         'INSERT INTO game_results (session_id, player_name, score, total_questions, time_taken, game_mode) VALUES (?, ?, ?, ?, ?, ?)',
         [sessionId, playerName, validatedScore, validatedTotal, timeTaken, gameMode],
         function(err) {
           if (err) {
-            console.error('Database error:', err);
+            console.error('Database error saving result:', err);
             return res.status(500).json({ error: 'Failed to save result' });
           }
+          
+          console.log('Result saved with ID:', this.lastID);
           
           // Mark session as completed
           db.run('UPDATE game_sessions SET is_completed = TRUE WHERE id = ?', [sessionId]);

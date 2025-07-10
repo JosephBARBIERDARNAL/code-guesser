@@ -393,6 +393,16 @@ document.addEventListener("DOMContentLoaded", () => {
     saveStatus.className = "saving";
 
     try {
+      console.log("Saving result data:", {
+        sessionId: currentSessionId,
+        playerName: playerName,
+        score: score,
+        totalQuestions: totalAttempts,
+        timeTaken: timeElapsed,
+        gameMode: gameMode,
+        answersCount: gameAnswers.length
+      });
+
       const response = await fetch(`${API_BASE_URL}/validate-result`, {
         method: "POST",
         headers: {
@@ -409,11 +419,16 @@ document.addEventListener("DOMContentLoaded", () => {
         }),
       });
 
+      console.log("Save response status:", response.status);
+
       if (!response.ok) {
-        throw new Error("Failed to save result");
+        const errorText = await response.text();
+        console.error("Save error response:", errorText);
+        throw new Error(`Failed to save result: ${response.status} - ${errorText}`);
       }
 
       const result = await response.json();
+      console.log("Save result:", result);
       saveStatus.textContent = `Result saved! Score: ${result.validatedScore}/${result.validatedTotal}`;
       saveStatus.className = "success";
       
@@ -421,7 +436,7 @@ document.addEventListener("DOMContentLoaded", () => {
       setTimeout(() => loadLeaderboard(currentLeaderboardMode), 1000);
     } catch (error) {
       console.error("Error saving result:", error);
-      saveStatus.textContent = "Failed to save result";
+      saveStatus.textContent = `Failed to save result: ${error.message}`;
       saveStatus.className = "error";
       saveButton.disabled = false;
     }
