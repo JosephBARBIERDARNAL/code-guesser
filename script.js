@@ -11,10 +11,12 @@ document.addEventListener("DOMContentLoaded", () => {
   const startScreen = document.getElementById("start-screen");
   const gameArea = document.getElementById("game-area");
   const snippetContainer = document.getElementById("snippet-container");
+  const titleHeader = document.getElementById("title-header");
 
   const CLASSIC_MODE = "classic";
   const INFINITE_MODE = "infinite";
   const SNIPPETS_PER_GAME = 10;
+  const API_BASE_URL = 'http://localhost:3000/api';
 
   let totalAttempts = 0;
   let gameMode = CLASSIC_MODE;
@@ -28,6 +30,8 @@ document.addEventListener("DOMContentLoaded", () => {
   let startTime;
   let timeElapsed = 0;
   let languagesSet = new Set();
+  let currentSessionId = null;
+  let gameAnswers = [];
 
   classicModeButton = document.getElementById("classic-mode-button");
   infiniteModeButton = document.getElementById("infinite-mode-button");
@@ -95,12 +99,55 @@ document.addEventListener("DOMContentLoaded", () => {
     return Array.from(distractors).slice(0, 3);
   }
 
-  function startGame(mode) {
+  async function startGame(mode) {
     gameMode = mode;
     currentSnippetIndex = 0;
     score = 0;
     totalAttempts = 0;
     timeElapsed = 0;
+    gameAnswers = [];
+
+    try {
+      // Start a new session with the backend
+      const response = await fetch(`${API_BASE_URL}/start-session`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          gameMode: mode,
+          snippetsCount: SNIPPETS_PER_GAME
+        })
+      });
+
+      if (!response.ok) {
+        throw new Error('Failed to start game session');
+      }
+
+      const sessionData = await response.json();
+      currentSessionId = sessionData.sessionId;
+      currentGameSnippets = sessionData.snippets;
+      
+      // Update languagesSet based on session snippets
+      languagesSet.clear();
+      currentGameSnippets.forEach(snippet => languagesSet.add(snippet.language));
+
+    } catch (error) {
+      console.error('Error starting game session:', error);
+      // Fallback to local mode if backend is unavailable
+      currentSessionId = null;
+      const shuffledAllSnippets = [...allSnippets];
+      shuffleArray(shuffledAllSnippets);
+      
+      if (gameMode === CLASSIC_MODE) {
+        currentGameSnippets = shuffledAllSnippets.slice(
+          0,
+          Math.min(SNIPPETS_PER_GAME, allSnippets.length)
+        );
+      } else {
+        currentGameSnippets = shuffledAllSnippets;
+      }
+    }
 
     const optionalElements = document.querySelectorAll(".optional-infinite");
     optionalElements.forEach((el) => {
@@ -109,18 +156,10 @@ document.addEventListener("DOMContentLoaded", () => {
 
     updateScoreDisplay();
 
-    const shuffledAllSnippets = [...allSnippets];
-    shuffleArray(shuffledAllSnippets);
-
     if (gameMode === CLASSIC_MODE) {
-      currentGameSnippets = shuffledAllSnippets.slice(
-        0,
-        Math.min(SNIPPETS_PER_GAME, allSnippets.length)
-      );
       totalSnippetsEl.textContent = currentGameSnippets.length;
       document.querySelector("#progress-container p").style.display = "block";
     } else {
-      currentGameSnippets = shuffledAllSnippets;
       totalSnippetsEl.textContent = "∞";
       document.querySelector("#progress-container p").style.display = "none";
     }
@@ -195,6 +234,15 @@ document.addEventListener("DOMContentLoaded", () => {
     buttons.forEach((btn) => btn.classList.add("disabled"));
 
     totalAttempts++;
+    
+    // Record the answer for backend validation
+    gameAnswers.push({
+      snippetIndex: currentSnippetIndex,
+      selectedLanguage: selectedOption,
+      correctLanguage: correctLanguage,
+      isCorrect: selectedOption === correctLanguage
+    });
+
     if (selectedOption === correctLanguage) {
       score++;
       feedbackText.textContent = "Correct! 🎉";
@@ -263,9 +311,81 @@ document.addEventListener("DOMContentLoaded", () => {
     }
   }
 
+  // Save result functionality
+  async function saveResult() {
+    const playerName = document.getElementById('player-name').value.trim();
+    const saveStatus = document.getElementById('save-status');
+    const saveButton = document.getElementById('save-button');
+    
+    if (!playerName) {
+      saveStatus.textContent = 'Please enter your name';
+      saveStatus.className = 'error';
+      return;
+    }
+    
+    if (!currentSessionId) {
+      saveStatus.textContent = 'Cannot save result - no active session';
+      saveStatus.className = 'error';
+      return;
+    }
+    
+    saveButton.disabled = true;
+    saveStatus.textContent = 'Saving...';
+    saveStatus.className = 'saving';
+    
+    try {
+      const response = await fetch(`${API_BASE_URL}/validate-result`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          sessionId: currentSessionId,
+          playerName: playerName,
+          score: score,
+          totalQuestions: totalAttempts,
+          timeTaken: timeElapsed,
+          gameMode: gameMode,
+          answers: gameAnswers
+        })
+      });
+      
+      if (!response.ok) {
+        throw new Error('Failed to save result');
+      }
+      
+      const result = await response.json();
+      saveStatus.textContent = `Result saved! Score: ${result.validatedScore}/${result.validatedTotal}`;
+      saveStatus.className = 'success';
+      
+    } catch (error) {
+      console.error('Error saving result:', error);
+      saveStatus.textContent = 'Failed to save result';
+      saveStatus.className = 'error';
+      saveButton.disabled = false;
+    }
+  }
+
   classicModeButton.addEventListener("click", () => startGame(CLASSIC_MODE));
   infiniteModeButton.addEventListener("click", () => startGame(INFINITE_MODE));
+  
+  document.getElementById('save-button').addEventListener('click', saveResult);
+  
   replayButton.addEventListener("click", () => {
+    resultsScreen.classList.add("hidden");
+    startScreen.classList.remove("hidden");
+    startScreen.style.opacity = "0";
+    startScreen.style.transform = "scale(0.95)";
+
+    requestAnimationFrame(() => {
+      startScreen.style.opacity = "1";
+      startScreen.style.transform = "scale(1)";
+    });
+  });
+
+  titleHeader.addEventListener("click", () => {
+    stopTimer();
+    gameArea.classList.add("hidden");
     resultsScreen.classList.add("hidden");
     startScreen.classList.remove("hidden");
     startScreen.style.opacity = "0";

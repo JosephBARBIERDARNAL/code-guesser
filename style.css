@@ -341,3 +341,70 @@ header h1 {
 #progress-container p {
   margin: 0;
 }
+
+.save-form {
+  margin: 20px 0;
+  padding: 20px;
+  background-color: rgba(255, 255, 255, 0.05);
+  border-radius: var(--border-radius);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.save-form input {
+  width: 100%;
+  max-width: 300px;
+  padding: 12px;
+  margin-bottom: 15px;
+  border: 2px solid var(--primary-color);
+  border-radius: var(--border-radius);
+  background-color: var(--surface-color);
+  color: var(--on-surface);
+  font-size: 1rem;
+  transition: border-color 0.3s ease;
+}
+
+.save-form input:focus {
+  outline: none;
+  border-color: var(--secondary-color);
+}
+
+.save-form button {
+  background-color: var(--secondary-color);
+  color: var(--background-color);
+  border: none;
+  padding: 12px 25px;
+  border-radius: var(--border-radius);
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background-color 0.3s ease, transform 0.1s ease;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+}
+
+.save-form button:hover:not(:disabled) {
+  background-color: #00bfa5;
+  transform: translateY(-2px);
+}
+
+.save-form button:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+#save-status {
+  margin-top: 10px;
+  font-size: 0.9rem;
+  font-weight: 500;
+}
+
+#save-status.success {
+  color: var(--correct-color);
+}
+
+#save-status.error {
+  color: var(--incorrect-color);
+}
+
+#save-status.saving {
+  color: var(--secondary-color);
+}
